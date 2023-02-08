@@ -6,7 +6,7 @@ import 'package:meca_wallet/counter.dart';
 void main() {
   group('Counter', () {
     test('value should start at 0', () {
-      expect(Counter().value, 0);
+      expect(Counter().value, 1);
     });
 
     test('value should be incremented', () {
@@ -14,7 +14,7 @@ void main() {
 
       counter.increment();
 
-      expect(counter.value, 1);
+      expect(counter.value, 2);
     });
 
     test('value should be decremented', () {
@@ -22,7 +22,7 @@ void main() {
 
       counter.decrement();
 
-      expect(counter.value, -1);
+      expect(counter.value, 0);
     });
   });
 }
