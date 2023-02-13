@@ -17,12 +17,14 @@ class IDHome extends StatelessWidget {
               listener: (BuildContext context, ConnectivityState state) {
                 WidgetsBinding.instance
                     .addPostFrameCallback((Duration timeStamp) {
+                  debugPrint('change connection');
                   context
                       .read<ConnectivityBloc>()
                       .add(ChangeConnectConnectivityEvent());
                 });
                 if (state is ChangeConnectedState) {
                   debugPrint('change to connect');
+                  context.pop();
                 }
                 if (state is ChangeDisonnectedState) {
                   debugPrint('change to Disconnect');

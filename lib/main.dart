@@ -7,7 +7,8 @@ void main() async {
   runApp(MultiBlocProvider(
     providers: [
       BlocProvider<ConnectivityBloc>(
-        create: (BuildContext context) => ConnectivityBloc(),
+        create: (BuildContext context) =>
+            ConnectivityBloc()..add(ConnectedConnectivityEvent()),
       )
     ],
     child: MaterialApp.router(
@@ -39,7 +40,8 @@ class ScreenUnavailable extends StatelessWidget {
           title: const Text('Screen unavailable'),
         ),
         body: const Center(
-          child: Text('Sorry, this screen is still under construction. Please come back later.'),
+          child: Text(
+              'Sorry, this screen is still under construction. Please come back later.'),
         ),
       );
 }
