@@ -8,6 +8,8 @@ class IDHome extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
+  static String routeName = 'homeScreen';
+
   @override
   Widget build(BuildContext context) => Scaffold(
           body: MultiBlocListener(

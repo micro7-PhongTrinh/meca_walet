@@ -79,7 +79,7 @@ void main() {
   test(
       'Response status code 405 when Invalid Input, then throw InvalidInputException',
       () async {
-    final oneposService = OneposService(MockClient(mockSuccessfulRequest));
+    final oneposService = OneposService(MockClient(mockInvalidInputRequest));
 
     expect(() => oneposService.createCategory(CreateCategoryParam(name: '')),
         throwsA(isA<InvalidInputException>()));

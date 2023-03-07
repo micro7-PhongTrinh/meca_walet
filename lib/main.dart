@@ -2,8 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meca_wallet/bloc/connectivity/connectivity_bloc.dart';
 import 'package:meca_wallet/route/route.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'features/landing/landing_screen.dart';
+import 'firebase_options.dart';
+import 'utils/custom_theme.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp(MultiBlocProvider(
     providers: [
       BlocProvider<ConnectivityBloc>(
@@ -11,23 +21,21 @@ void main() async {
             ConnectivityBloc()..add(ConnectedConnectivityEvent()),
       )
     ],
-    child: MaterialApp.router(
-      routerConfig: appRoute,
-      title: 'Interactive Diary',
-      builder: (context, child) {
-        if (child != null) {
-          final double textScaleFactor = MediaQuery.of(context).textScaleFactor;
-
-          return MediaQuery(
-              data: MediaQuery.of(context)
-                  .copyWith(textScaleFactor: textScaleFactor.clamp(0.8, 1.25)),
-              child: child);
-        }
-
-        // return unavailable screen
-        return const ScreenUnavailable();
-      },
-    ),
+    child: LayoutBuilder(builder: (context, constraints) {
+      final customTheme = CustomTheme(constraints);
+      return MaterialApp(
+          title: 'Series 2 Ecommerce',
+          theme: ThemeData(
+            primarySwatch: Colors.green,
+            textTheme: customTheme.nunito(),
+            elevatedButtonTheme: customTheme.elevatedButtonTheme(),
+            outlinedButtonTheme: customTheme.outlinedButtonTheme(),
+            textButtonTheme: customTheme.textButtonTheme(),
+            dividerTheme: customTheme.dividerTheme(),
+          ),
+          home: const LandingScreen(),
+          routes: routes);
+    }),
   ));
 }
 
