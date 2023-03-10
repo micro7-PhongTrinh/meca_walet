@@ -5,7 +5,7 @@ import '../utils/screen_utils.dart';
 class SearchBar extends StatelessWidget {
   final String hint;
 
-  const SearchBar(this.hint);
+  const SearchBar(this.hint, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,7 @@ class SearchBar extends StatelessWidget {
       decoration: InputDecoration(
         filled: true,
         fillColor: kFillColorThird,
-        prefixIcon: Icon(Icons.search),
+        prefixIcon: const Icon(Icons.search),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(
             getProportionateScreenWidth(4),
@@ -23,7 +23,7 @@ class SearchBar extends StatelessWidget {
           borderRadius: BorderRadius.circular(
             getProportionateScreenWidth(8),
           ),
-          borderSide: BorderSide(
+          borderSide: const BorderSide(
             color: Colors.transparent,
           ),
         ),
@@ -31,7 +31,7 @@ class SearchBar extends StatelessWidget {
           borderRadius: BorderRadius.circular(
             getProportionateScreenWidth(8),
           ),
-          borderSide: BorderSide(
+          borderSide: const BorderSide(
             color: Colors.transparent,
           ),
         ),
@@ -46,7 +46,7 @@ class SearchBar extends StatelessWidget {
           fontSize: getProportionateScreenWidth(17),
         ),
       ),
-      style: TextStyle(
+      style: const TextStyle(
         fontWeight: FontWeight.w600,
       ),
     );

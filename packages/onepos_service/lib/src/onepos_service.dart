@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer' as developer;
 
 import 'package:http/http.dart' show Client, Response;
 import 'package:onepos_service/src/request_exception.dart';
@@ -25,7 +24,7 @@ class OneposService {
     } catch (e) {
       throw Exception();
     }
-  }                                                                                                                                                    
+  }
 
   Future<Response> sendPostRequest(
       String endpoint, Map<String, String> body) async {

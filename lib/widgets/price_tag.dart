@@ -24,7 +24,7 @@ class PriceTag extends StatelessWidget {
       ),
       child: Text(
         '\$56',
-        style: Theme.of(context).textTheme.headline3?.copyWith(
+        style: Theme.of(context).textTheme.displaySmall?.copyWith(
               color: kPrimaryPurple,
             ),
       ),

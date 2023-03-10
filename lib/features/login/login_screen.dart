@@ -51,11 +51,11 @@ class _SigninBody extends StatelessWidget {
                     ],
                   ),
                   const Spacer(),
-                  SocialMediaLogin(
+                  const SocialMediaLogin(
                     method: 'Login',
                   ),
                   const Spacer(),
-                  OrRow(),
+                  const OrRow(),
                   const Spacer(),
                   const TextFields(),
                   const Spacer(),

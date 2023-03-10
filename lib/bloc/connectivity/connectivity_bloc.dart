@@ -15,6 +15,7 @@ class ConnectivityBloc extends Bloc<ConnectivityEvent, ConnectivityState> {
         super(ConnectivityState()) {
     on<ConnectedConnectivityEvent>(
         (ConnectivityEvent event, Emitter<ConnectivityState> emit) async {
+      print('ơeifjef');
       await _checkConnectivity(emit);
     });
 

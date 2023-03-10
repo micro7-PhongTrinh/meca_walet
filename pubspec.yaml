@@ -39,6 +39,8 @@ dependencies:
   equatable: ^2.0.5
   connectivity:
     path: packages/connectivity
+  application_state:
+    path: packages/application_state
   go_router: ^6.0.6
   flutter_svg: ^2.0.0+1
   firebase_core: ^2.7.0

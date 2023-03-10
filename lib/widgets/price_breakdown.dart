@@ -21,7 +21,7 @@ class PriceBreakdown extends StatelessWidget {
                 color: kTextColorAccent,
               ),
         ),
-        Spacer(),
+        const Spacer(),
         Text(
           price,
           style: Theme.of(context).textTheme.headlineMedium?.copyWith(

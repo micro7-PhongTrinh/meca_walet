@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meca_wallet/bloc/connectivity/connectivity_bloc.dart';
-import 'package:meca_wallet/route/route.dart';
 
 class IDHome extends StatelessWidget {
   const IDHome({
@@ -26,18 +25,18 @@ class IDHome extends StatelessWidget {
                 });
                 if (state is ChangeConnectedState) {
                   debugPrint('change to connect');
-                  context.pop();
+                  Navigator.of(context).pop();
                 }
                 if (state is ChangeDisonnectedState) {
                   debugPrint('change to Disconnect');
-                  context.push('/noConnection');
+                  Navigator.of(context).pushNamed('/noConnection');
                 }
                 if (state is ConnectedState) {
                   debugPrint('connected');
                 }
                 if (state is DisconnectedState) {
                   debugPrint('disconnected');
-                  context.push('/noConnection');
+                  Navigator.of(context).pushNamed('/noConnection');
                 }
               },
             ),

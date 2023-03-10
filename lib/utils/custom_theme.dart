@@ -1,5 +1,6 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../constants/colors.dart';
 
@@ -35,12 +36,12 @@ class CustomTheme {
             fontWeight: FontWeight.normal,
             color: kTextColor,
           ),
-          headlineMedium: const TextStyle()?.copyWith(
+          headline4: const TextStyle().copyWith(
             fontSize: _getProportionateScreenWidth(16),
             fontWeight: FontWeight.normal,
             color: kTextColor,
           ),
-          headline5: const TextStyle()?.copyWith(
+          headline5: const TextStyle().copyWith(
             fontSize: _getProportionateScreenWidth(20),
             fontWeight: FontWeight.w700,
             color: kTextColor,

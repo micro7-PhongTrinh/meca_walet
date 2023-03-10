@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:meca_wallet/bloc/application_setting/application_setting_bloc.dart';
 import '../bloc/authentication/signin/google_signin_bloc.dart';
 import '../constants/colors.dart';
 import '../features/home/home_screen.dart';
@@ -87,9 +88,9 @@ class GoogleSignInButton extends StatelessWidget {
       );
     }, listener: (BuildContext stateContext, GoogleSignupState googleState) {
       if (googleState.isSignedUpSucceed) {
+        context.read<ApplicationSettingBloc>().add(SaveUserLoggedinEvent());
         Navigator.of(context).pushNamed(IDHome.routeName);
-      } else if (googleState.isSignedUpFailed) {
-      }
+      } else if (googleState.isSignedUpFailed) {}
     });
   }
 }

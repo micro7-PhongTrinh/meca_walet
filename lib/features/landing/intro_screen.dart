@@ -144,7 +144,7 @@ class _PageIndicator extends StatelessWidget {
 }
 
 class IllustrationPageView extends StatelessWidget {
-  final controller;
+  final PageController controller;
   final Function(int) callback;
 
   const IllustrationPageView(this.controller, this.callback, {super.key});

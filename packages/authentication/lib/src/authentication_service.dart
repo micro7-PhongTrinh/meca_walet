@@ -37,7 +37,9 @@ class AuthenticationService {
       await _googleSignIn.disconnect();
       await _googleSignIn.signOut();
       _firebaseAuth.signOut();
-    } catch (e) {}
+    } catch (e) {
+      throw (Exception(e));
+    }
   }
 
   Future<UserModel> getCurrentUser() async {

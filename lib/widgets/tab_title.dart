@@ -8,7 +8,7 @@ class TabTitle extends StatelessWidget {
   final double padding;
 
   const TabTitle(
-      {required this.title,
+      {super.key, required this.title,
       required this.seeAll,
       this.actionText = 'See All',
       this.padding = 16});
@@ -26,7 +26,7 @@ class TabTitle extends StatelessWidget {
           Expanded(
             child: Text(
               title,
-              style: Theme.of(context).textTheme.headline5,
+              style: Theme.of(context).textTheme.headlineSmall,
             ),
           ),
           TextButton(

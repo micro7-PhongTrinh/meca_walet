@@ -7,7 +7,7 @@ class OptionButton extends StatelessWidget {
   final Function onPressHandler;
 
   const OptionButton(
-      {required this.desc, required this.method, required this.onPressHandler});
+      {super.key, required this.desc, required this.method, required this.onPressHandler});
   @override
   Widget build(BuildContext context) {
     return TextButton(
