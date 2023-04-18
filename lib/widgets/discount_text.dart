@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../constants/colors.dart';
-import '../utils/screen_utils.dart';
 
 class DiscoutText extends StatelessWidget {
   const DiscoutText({
@@ -11,8 +10,8 @@ class DiscoutText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: getProportionateScreenWidth(4),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 4,
       ),
       decoration: const ShapeDecoration(
         shape: StadiumBorder(),

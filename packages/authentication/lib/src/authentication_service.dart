@@ -7,11 +7,24 @@ import 'authentication_exception.dart';
 class AuthenticationService {
   final GoogleSignIn _googleSignIn;
   final FirebaseAuth _firebaseAuth;
+  late UserModel _user = UserModel.empty;
 
   AuthenticationService(
       {GoogleSignIn? googleSignIn, FirebaseAuth? firebaseAuth})
       : _googleSignIn = googleSignIn ?? GoogleSignIn(),
         _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance;
+
+  Stream<UserModel> get user {
+    return _firebaseAuth.authStateChanges().map((firebaseUser) {
+      _user =
+          firebaseUser == null ? UserModel.empty : toUserModel(firebaseUser);
+      return _user;
+    });
+  }
+
+  UserModel get currentUser {
+    return _user;
+  }
 
   Future<UserModel> signinGoogle() async {
     GoogleSignInAccount? account;
@@ -33,6 +46,7 @@ class AuthenticationService {
   }
 
   Future signoutGoogle() async {
+    if (_firebaseAuth.currentUser == null) return;
     try {
       await _googleSignIn.disconnect();
       await _googleSignIn.signOut();
@@ -47,11 +61,15 @@ class AuthenticationService {
     if (firebaseUser == null) {
       throw AuthenticationFailedException.userNotFound();
     }
+    return toUserModel(firebaseUser);
+  }
+
+  UserModel toUserModel(User user) {
     return UserModel(
-        name: firebaseUser.displayName,
-        email: firebaseUser.email,
-        phone: firebaseUser.phoneNumber,
-        avatarUrl: firebaseUser.photoURL);
+        name: user.displayName,
+        email: user.email,
+        phone: user.phoneNumber,
+        avatarUrl: user.photoURL);
   }
 
   Future<OAuthCredential> _getCredentialFromAccount(

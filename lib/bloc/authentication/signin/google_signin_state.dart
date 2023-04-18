@@ -18,7 +18,7 @@ class GoogleSignupFailedState extends GoogleSignupState {
 
 class GoogleSigningUpState extends GoogleSignupState {}
 
-extension GoogleSignupStateExtension on GoogleSignupState {
+extension GoogleSignupStateExtension on GoogleSignupState { 
   bool get isSigningUp => this is GoogleSigningUpState;
   bool get isSignedUpSucceed => this is GoogleSignupSucceedState;
   bool get isSignedUpFailed => this is GoogleSignupFailedState;

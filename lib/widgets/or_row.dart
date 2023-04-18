@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../constants/colors.dart';
-import '../utils/screen_utils.dart';
 
 class OrRow extends StatelessWidget {
   const OrRow({super.key});
@@ -11,20 +10,20 @@ class OrRow extends StatelessWidget {
       children: [
         Expanded(
           child: Column(
-            children: [
+            children: const [
               SizedBox(
-                height: getProportionateScreenHeight(8),
+                height: 8,
               ),
-              const Divider(),
+              Divider(),
               SizedBox(
-                height: getProportionateScreenHeight(8),
+                height: 8,
               )
             ],
           ),
         ),
         Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: getProportionateScreenWidth(16),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 16,
           ),
           child: Text(
             'OR',
@@ -36,13 +35,13 @@ class OrRow extends StatelessWidget {
         ),
         Expanded(
           child: Column(
-            children: [
+            children: const [
               SizedBox(
-                height: getProportionateScreenHeight(8),
+                height: 8,
               ),
-              const Divider(),
+              Divider(),
               SizedBox(
-                height: getProportionateScreenHeight(8),
+                height: 8,
               )
             ],
           ),

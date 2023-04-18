@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../constants/colors.dart';
-import '../../utils/screen_utils.dart';
 import '../login/login_screen.dart';
 
 class IntroScreen extends StatefulWidget {
@@ -26,7 +25,6 @@ class IntroScreenState extends State<IntroScreen> {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtils().init(context);
     return Scaffold(
       body: Column(
         children: [
@@ -64,8 +62,8 @@ class _TextView extends StatelessWidget {
     return Expanded(
       flex: 2,
       child: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: getProportionateScreenWidth(20),
+        padding: const EdgeInsets.symmetric(
+          horizontal: 20,
         ),
         child: Column(
           children: [
@@ -90,12 +88,12 @@ class _TextView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 _PageIndicator(pageCount, 0),
-                SizedBox(
-                  width: getProportionateScreenWidth(8),
+                const SizedBox(
+                  width: 8,
                 ),
                 _PageIndicator(pageCount, 1),
-                SizedBox(
-                  width: getProportionateScreenWidth(8),
+                const SizedBox(
+                  width: 8,
                 ),
                 _PageIndicator(pageCount, 2),
               ],
@@ -129,14 +127,12 @@ class _PageIndicator extends StatelessWidget {
       duration: const Duration(
         milliseconds: 300,
       ),
-      width: pageCount == index
-          ? getProportionateScreenWidth(32)
-          : getProportionateScreenWidth(8),
-      height: getProportionateScreenWidth(8),
+      width: pageCount == index ? 32 : 8,
+      height: 8,
       decoration: BoxDecoration(
         color: pageCount == index ? kPrimaryPurple : kFillColorPrimary,
         borderRadius: BorderRadius.circular(
-          getProportionateScreenWidth(4),
+          4,
         ),
       ),
     );
@@ -159,8 +155,8 @@ class IllustrationPageView extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            SizedBox(
-              height: getProportionateScreenHeight(50),
+            const SizedBox(
+              height: 50,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -176,13 +172,13 @@ class IllustrationPageView extends StatelessWidget {
                         ),
                   ),
                 ),
-                SizedBox(
-                  width: getProportionateScreenWidth(20),
+                const SizedBox(
+                  width: 20,
                 )
               ],
             ),
-            SizedBox(
-              height: getProportionateScreenHeight(40),
+            const SizedBox(
+              height: 40,
             ),
             Expanded(
               child: PageView(
@@ -203,8 +199,8 @@ class IllustrationPageView extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(
-              height: getProportionateScreenHeight(20),
+            const SizedBox(
+              height: 20,
             ),
           ],
         ),

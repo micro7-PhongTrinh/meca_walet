@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meca_wallet/bloc/application_setting/application_setting_bloc.dart';
 import '../bloc/authentication/signin/google_signin_bloc.dart';
 import '../constants/colors.dart';
-import '../features/home/home_screen.dart';
-import '../utils/screen_utils.dart';
 
 class SocialMediaLogin extends StatelessWidget {
   const SocialMediaLogin({
@@ -16,7 +13,6 @@ class SocialMediaLogin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtils().init(context);
     return ElevatedButtonTheme(
       data: ElevatedButtonThemeData(
         style: ButtonStyle(
@@ -32,26 +28,26 @@ class SocialMediaLogin extends StatelessWidget {
           shape: MaterialStateProperty.all(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(
-                getProportionateScreenWidth(4),
+                4,
               ),
             ),
           ),
           alignment: Alignment.centerLeft,
           textStyle: MaterialStateProperty.all(
-            TextStyle(
-              fontSize: getProportionateScreenWidth(16),
+            const TextStyle(
+              fontSize: 16,
             ),
           ),
           minimumSize: MaterialStateProperty.all(
-            Size(
+            const Size(
               double.infinity,
-              getProportionateScreenHeight(56),
+              56,
             ),
           ),
         ),
       ),
       child: Column(
-        children: [
+        children: const [
           // ElevatedButton(
           //   onPressed: () {},
           //   child: Text(
@@ -61,9 +57,9 @@ class SocialMediaLogin extends StatelessWidget {
           // SizedBox(
           //   height: getProportionateScreenHeight(16),
           // ),
-          const GoogleSignInButton(),
+          GoogleSignInButton(),
           SizedBox(
-            height: getProportionateScreenHeight(32),
+            height: 32,
           ),
         ],
       ),
@@ -88,8 +84,6 @@ class GoogleSignInButton extends StatelessWidget {
       );
     }, listener: (BuildContext stateContext, GoogleSignupState googleState) {
       if (googleState.isSignedUpSucceed) {
-        context.read<ApplicationSettingBloc>().add(SaveUserLoggedinEvent());
-        Navigator.of(context).pushNamed(IDHome.routeName);
       } else if (googleState.isSignedUpFailed) {}
     });
   }

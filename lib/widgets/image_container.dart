@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../constants/colors.dart';
-import '../utils/screen_utils.dart';
 
 class ImageContainer extends StatelessWidget {
   const ImageContainer({
@@ -10,8 +9,8 @@ class ImageContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: getProportionateScreenWidth(112),
-      width: getProportionateScreenWidth(112),
+      height: 112,
+      width: 112,
       child: Stack(
         children: [
           Container(
@@ -23,8 +22,8 @@ class ImageContainer extends StatelessWidget {
           Align(
             alignment: Alignment.bottomRight,
             child: Container(
-              padding: EdgeInsets.all(
-                getProportionateScreenWidth(8),
+              padding: const EdgeInsets.all(
+                8,
               ),
               decoration: const ShapeDecoration(
                 shape: CircleBorder(),

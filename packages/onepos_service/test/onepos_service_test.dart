@@ -46,9 +46,9 @@ void main() {
 
   //truong hop khong gui dc
   test('test request not successfuly send', () async {
-    Future<http.Response> mockRequest(http.Request request) async {
-      return http.Response('fewfwef', 404);
-    }
+    //Future<http.Response> mockRequest(http.Request request) async {
+    //  return http.Response('fewfwef', 404);
+    //}
 
     final oneposService = OneposService(MockClient(mockFailRequest));
 

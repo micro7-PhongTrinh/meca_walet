@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../constants/colors.dart';
-import '../utils/screen_utils.dart';
 
 class CustomIconButton extends StatelessWidget {
   final IconData icon;
@@ -17,12 +16,12 @@ class CustomIconButton extends StatelessWidget {
         fillColor: kGreyShade5,
         elevation: 0,
         constraints: BoxConstraints.tightFor(
-          width: getProportionateScreenWidth(size),
-          height: getProportionateScreenWidth(size),
+          width: size,
+          height: size,
         ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(
-            getProportionateScreenWidth(8.0),
+            8.0,
           ),
         ),
         onPressed:() => onPress,

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../utils/screen_utils.dart';
 import '../widgets/back_button_text.dart';
 
 class CustomAppBar extends StatelessWidget {
@@ -13,8 +12,8 @@ class CustomAppBar extends StatelessWidget {
         const Expanded(child: BackButtonText()),
         Text(
           title,
-          style: TextStyle(
-            fontSize: getProportionateScreenWidth(17),
+          style: const TextStyle(
+            fontSize: 17,
             fontWeight: FontWeight.w600,
           ),
         ),

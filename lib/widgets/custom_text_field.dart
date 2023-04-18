@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import '../constants/colors.dart';
-import '../utils/screen_utils.dart';
 
 class CustomTextField extends StatelessWidget {
-  const CustomTextField({super.key, 
+  const CustomTextField({
+    super.key,
     required this.hint,
     this.icon,
   });
@@ -15,7 +15,7 @@ class CustomTextField extends StatelessWidget {
       decoration: InputDecoration(
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(
-            getProportionateScreenWidth(8),
+            8,
           ),
           borderSide: const BorderSide(
             color: kGreyShade3,
@@ -23,7 +23,7 @@ class CustomTextField extends StatelessWidget {
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(
-            getProportionateScreenWidth(8),
+            8,
           ),
           borderSide: const BorderSide(
             color: kGreyShade3,

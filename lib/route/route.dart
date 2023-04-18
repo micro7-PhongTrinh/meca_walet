@@ -12,7 +12,7 @@ const String noConnectionRoute = '/noConnection';
 const String landingRoute = '/landing';
 
 Map<String, Widget Function(BuildContext)> routes = {
-  IDHome.routeName: (ctx) => const IDHome(),
+  MWHome.routeName: (ctx) => const MWHome(),
   noConnectionRoute: (ctx) => const NoConnectionScreen(),
   landingRoute: (ctx) => const LandingScreen(),
   IntroScreen.routeName: (ctx) => const IntroScreen(),

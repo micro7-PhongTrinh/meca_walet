@@ -6,9 +6,8 @@ part 'google_signin_event.dart';
 
 class GoogleSignupBloc extends Bloc<GoogleSignupEvent, GoogleSignupState> {
   final AuthenticationService _authenticationService;
-  GoogleSignupBloc({AuthenticationService? authenticationService})
-      : _authenticationService =
-            authenticationService ?? AuthenticationService(),
+  GoogleSignupBloc(AuthenticationService authenticationService)
+      : _authenticationService = authenticationService,
         super(GoogleSignupInitialState()) {
     on<SignUpByGoogleEvent>(
         (GoogleSignupEvent event, Emitter<GoogleSignupState> emit) async {
@@ -18,8 +17,6 @@ class GoogleSignupBloc extends Bloc<GoogleSignupEvent, GoogleSignupState> {
 
   Future<dynamic> _signInGoogle(Emitter<GoogleSignupState> emit) async {
     emit(GoogleSigningUpState());
-    //test
-    await _authenticationService.signoutGoogle();
     try {
       final UserModel user = await _authenticationService.signinGoogle();
       emit(GoogleSignupSucceedState(user));

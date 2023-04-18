@@ -82,7 +82,7 @@ class CustomTheme {
           minimumSize: MaterialStateProperty.all(
             Size(
               double.infinity,
-              _getProportionateScreenHeight(56),
+              _getProportionateScreenWidth(56),
             ),
           ),
         ),
@@ -122,7 +122,7 @@ class CustomTheme {
           minimumSize: MaterialStateProperty.all(
             Size(
               double.infinity,
-              _getProportionateScreenHeight(56),
+              _getProportionateScreenWidth(56),
             ),
           ),
         ),

@@ -1,26 +1,22 @@
 import 'package:flutter/material.dart';
-import '../utils/screen_utils.dart';
 
 class TabTitle extends StatelessWidget {
   final String title;
   final String actionText;
-  final Function seeAll;
+  final Function? seeAll;
   final double padding;
 
   const TabTitle(
-      {super.key, required this.title,
-      required this.seeAll,
-      this.actionText = 'See All',
+      {super.key,
+      required this.title,
+      this.seeAll,
+      this.actionText = 'Tất cả',
       this.padding = 16});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: getProportionateScreenWidth(
-          padding,
-        ),
-      ),
+      padding: EdgeInsets.symmetric(horizontal: padding),
       child: Row(
         children: [
           Expanded(
@@ -29,12 +25,13 @@ class TabTitle extends StatelessWidget {
               style: Theme.of(context).textTheme.headlineSmall,
             ),
           ),
-          TextButton(
-            onPressed: () => seeAll,
-            child: Text(
-              actionText,
+          if (seeAll != null)
+            TextButton(
+              onPressed: () => seeAll,
+              child: Text(
+                actionText,
+              ),
             ),
-          ),
         ],
       ),
     );

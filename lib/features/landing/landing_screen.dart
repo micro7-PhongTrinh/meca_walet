@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../constants/colors.dart';
 
-import '../../utils/screen_utils.dart';
-
 ///best practices
 import 'intro_screen.dart';
 
@@ -12,7 +10,6 @@ class LandingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtils().init(context);
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -39,11 +36,7 @@ class _IntroWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: getProportionateScreenWidth(
-            20,
-          ),
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

@@ -15,7 +15,7 @@ class OneposService {
   Future<CategoryModel> createCategory(CreateCategoryParam param) async {
     try {
       //create category
-      var url = Uri.parse('${ApiConstant.baseUrl}/categories');
+      //var url = Uri.parse('${ApiConstant.baseUrl}/categories');
       final response =
           await sendPostRequest('categories', _parsePostCategoryBody(param));
       return CategoryModel.fromJson(jsonDecode(response.body)['data']);

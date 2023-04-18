@@ -1,8 +1,10 @@
+import 'package:authentication/authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:meca_wallet/bloc/authentication/authentication/authentication_bloc.dart';
+import 'package:meca_wallet/features/home/home_screen.dart';
 import '../../bloc/authentication/signin/google_signin_bloc.dart';
 import '../../constants/colors.dart';
-import '../../utils/screen_utils.dart';
 import '../../widgets/back_button_ls.dart';
 import '../../widgets/custom_text_field.dart';
 import '../../widgets/option_button.dart';
@@ -15,10 +17,22 @@ class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    ScreenUtils().init(context);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (context.read<AuthenticationBloc>().state.status ==
+          AutheticationStatus.authenticated) {
+        Navigator.of(context).popAndPushNamed(MWHome.routeName);
+      }
+    });
     return BlocProvider<GoogleSignupBloc>(
-      create: (_) => GoogleSignupBloc(),
-      child: _SigninBody(),
+      create: (_) => GoogleSignupBloc(context.read<AuthenticationService>()),
+      child: BlocListener<AuthenticationBloc, AuthenticationState>(
+          listener: (context, state) {
+            if (state.status == AutheticationStatus.authenticated) {
+              Navigator.of(context).popAndPushNamed(MWHome.routeName);
+            }
+          },
+          listenWhen: (previous, current) => true,
+          child: _SigninBody()),
     );
   }
 }
@@ -34,8 +48,8 @@ class _SigninBody extends StatelessWidget {
           const BackButtonLS(),
           Expanded(
             child: Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: getProportionateScreenWidth(16),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16,
               ),
               child: Column(
                 children: [
@@ -73,9 +87,7 @@ class _SigninBody extends StatelessWidget {
                   ),
                   const Spacer(),
                   ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).pushNamed('');
-                    },
+                    onPressed: () {},
                     child: const Text('Login'),
                   ),
                   const Spacer(
@@ -84,9 +96,7 @@ class _SigninBody extends StatelessWidget {
                   OptionButton(
                     desc: 'Don\'t have an account? ',
                     method: 'Sign Up',
-                    onPressHandler: () {
-                      Navigator.of(context).pushNamed('');
-                    },
+                    onPressHandler: () {},
                   ),
                   const Spacer(),
                 ],

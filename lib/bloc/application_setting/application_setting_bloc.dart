@@ -40,7 +40,7 @@ class ApplicationSettingBloc
   Future<void> _saveUserLoggedin(Emitter<ApplicationSettingState> emit) async {
     try {
       await _applicationState.setIsLoggedin(true).then((value) {
-        if (value == true) {
+        if (value == true) { 
           emit(SaveLoggedinSuccessState());
         }
       });
