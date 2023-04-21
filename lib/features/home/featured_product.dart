@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meca_wallet/features/home/bloc/get_featured_product_bloc.dart';
+import 'package:meca_wallet/features/home/bloc/get_featured_product_cubit.dart';
 import 'package:meca_wallet/widgets/featured_product_card.dart';
 
-import '../../constants/colors.dart';
+import '../../widgets/error/featured_product_error.dart';
 import '../../widgets/selected_text_button.dart';
+import '../../widgets/skeleton/featured_product_skeleton.dart';
 import '../../widgets/tab_title.dart';
 
 // nay hien thi danh muc theo cac danh muc san pham cua cac cua hang
@@ -18,9 +19,8 @@ class FeaturedProduct extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<GetFeaturedProductBloc>(
-        create: (_) =>
-            GetFeaturedProductBloc()..getFilteredProducts(categories[0]),
+    return BlocProvider<GetFeaturedProductCubit>(
+        create: (_) => GetFeaturedProductCubit(),
         child: Column(
           children: [
             const TabTitle(title: 'Danh mục nổi bật'),
@@ -31,23 +31,30 @@ class FeaturedProduct extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(
                   horizontal: 16.0,
                 ),
-                child: _FeaturedProductBody(categories)),
+                child: FeaturedProductBody(categories)),
           ],
         ));
   }
 }
 
-class _FeaturedProductBody extends StatefulWidget {
-  const _FeaturedProductBody(this.categories);
+class FeaturedProductBody extends StatefulWidget {
+  const FeaturedProductBody(this.categories, {super.key});
 
   final List<String> categories;
 
   @override
-  State<_FeaturedProductBody> createState() => _FeaturedProductBodyState();
+  State<FeaturedProductBody> createState() => _FeaturedProductBodyState();
 }
 
-class _FeaturedProductBodyState extends State<_FeaturedProductBody> {
+class _FeaturedProductBodyState extends State<FeaturedProductBody> {
   int selectedIndex = 0;
+
+  @override
+  void initState() {
+    BlocProvider.of<GetFeaturedProductCubit>(context)
+        .getFilteredProducts(widget.categories[0]);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,8 +75,9 @@ class _FeaturedProductBodyState extends State<_FeaturedProductBody> {
                     setState(() {
                       selectedIndex = index;
                       var getProductBloc =
-                          BlocProvider.of<GetFeaturedProductBloc>(context);
-                      getProductBloc.getFilteredProducts(index.toString());
+                          BlocProvider.of<GetFeaturedProductCubit>(context);
+                      getProductBloc
+                          .getFilteredProducts(widget.categories[index]);
                     });
                   })),
             )),
@@ -88,30 +96,30 @@ class _ProductScrollList extends StatelessWidget {
     return SingleChildScrollView(
       key: const Key('tategory_product_tab'),
       scrollDirection: Axis.horizontal,
-      child: BlocBuilder<GetFeaturedProductBloc, GetFeaturedProductState>(
+      child: BlocBuilder<GetFeaturedProductCubit, GetFeaturedProductState>(
         builder: (context, state) {
           if (state is GetFeaturedProductSuccess) {
             return Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: List.generate(
-                  state.products.length,  
-                  (index) => Container(
-                      margin: const EdgeInsets.only(right: 8),
-                      child: FeaturedProductCard(
-                          key: Key('tategory_product_tab_$index'),
-                          product: state.products[index])),
-                ));
+                    state.products.length,
+                    (index) => Container(
+                          margin: const EdgeInsets.only(right: 8),
+                          child: InkWell(
+                              onTap: () => Navigator.of(context)
+                                  .pushNamed('/storeScreen'),
+                              child: FeaturedProductCard(
+                                  key: Key('tategory_product_tab_$index'),
+                                  product: state.products[index])),
+                        )));
+          } else if (state is GetFeaturedProductFail) {
+            return const FeaturedProductError();
           }
           return Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: List.generate(
                 5,
-                (index) => Container(
-                  height: 160,
-                  width: 112,
-                  margin: const EdgeInsets.only(right: 8),
-                  color: kFillColorPrimary,
-                ),
+                (index) => const FeaturedProductSkeleton(),
               ));
         },
       ),

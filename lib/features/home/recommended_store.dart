@@ -15,15 +15,17 @@ class RecommendedStore extends StatelessWidget {
         const SizedBox(
           height: 10,
         ),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-              StoreCard(onTap: () {}),
-              StoreCard(onTap: () {}),
-            ],
-          ),
-        ),
+        Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  StoreCard(onTap: () {}),
+                  StoreCard(onTap: () {}),
+                ],
+              ),
+            )),
       ],
     );
   }

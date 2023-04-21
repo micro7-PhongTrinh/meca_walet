@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meca_wallet/bloc/connectivity/connectivity_bloc.dart';
 
+import 'featured_membership_card.dart';
 import 'featured_product.dart';
 import 'recommended_store.dart';
 
@@ -54,20 +55,24 @@ class _IDHomeView extends StatelessWidget {
 
   // import category from outside make testable
   final List<String> categories = const [
-      'Quần áo',
-      'Coffee',
-      'Nhà hàng',
-      'Mua sắm',
-      'Ăn vặt',
-    ];
+    'Quần áo',
+    'Coffee',
+    'Nhà hàng',
+    'Mua sắm',
+    'Ăn vặt',
+  ];
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      const SizedBox(height: 64),
-      FeaturedProduct(categories: categories),
-      const SizedBox(height: 64),
-      const RecommendedStore(),
-    ]);
+    return SingleChildScrollView(
+        padding: const EdgeInsets.only(bottom: 64),
+        child: Column(children: [
+          const SizedBox(height: 64),
+          const FeaturedMembershipCard(),
+          const SizedBox(height: 64),
+          FeaturedProduct(categories: categories),
+          const SizedBox(height: 64),
+          const RecommendedStore(),
+        ]));
   }
 }

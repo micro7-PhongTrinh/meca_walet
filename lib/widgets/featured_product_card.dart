@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../constants/colors.dart';
-import '../models/featured_product.dart';
+import '../model/featured_product.dart';
 
 class FeaturedProductCard extends StatelessWidget {
   const FeaturedProductCard({super.key, required this.product});
@@ -28,10 +28,13 @@ class FeaturedProductCard extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Image.network(product.imgUrl,
-                  fit: BoxFit.cover,
-                  height: double.infinity,
-                  width: double.infinity),
+              child: Image.network(
+                product.imgUrl,
+                fit: BoxFit.cover,
+                height: double.infinity,
+                width: double.infinity,
+                errorBuilder: (context, error, stackTrace) => Container(),
+              ),
             ),
           ),
           const SizedBox(height: 5),

@@ -16,7 +16,7 @@ class StoreCard extends StatelessWidget {
         width: 280,
         height: 170,
         margin: EdgeInsets.only(
-          left: isHorizontalScrolling ? 16 : 0,
+          right: isHorizontalScrolling ? 16 : 0,
           bottom: !isHorizontalScrolling ? 32 : 0,
         ),
         decoration: ShapeDecoration(

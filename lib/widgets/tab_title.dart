@@ -27,7 +27,9 @@ class TabTitle extends StatelessWidget {
           ),
           if (seeAll != null)
             TextButton(
-              onPressed: () => seeAll,
+              onPressed: () {
+                seeAll!();
+              },
               child: Text(
                 actionText,
               ),

@@ -1,4 +1,4 @@
-part of 'get_featured_product_bloc.dart';
+part of 'get_featured_product_cubit.dart';
 
 abstract class GetFeaturedProductState extends Equatable {
   const GetFeaturedProductState();
@@ -16,3 +16,5 @@ class GetFeaturedProductSuccess extends GetFeaturedProductState {
 
   const GetFeaturedProductSuccess(this.products);
 }
+
+class GetFeaturedProductFail extends GetFeaturedProductState {}

@@ -1,12 +1,12 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../models/featured_product.dart';
+import '../../../model/featured_product.dart';
 part 'get_featured_product_state.dart';
 
-class GetFeaturedProductBloc extends Cubit<GetFeaturedProductState> {
+class GetFeaturedProductCubit extends Cubit<GetFeaturedProductState> {
   //late final StorageService service;
-  GetFeaturedProductBloc() : super(GetFeaturedProductInitial());
+  GetFeaturedProductCubit() : super(GetFeaturedProductInitial());
 
   Future<void> getFilteredProducts(String filter) async {
     emit(GetFeaturedProductLoading());
