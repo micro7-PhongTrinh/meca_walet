@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../widgets/store_card.dart';
-import '../../widgets/tab_title.dart';
+import '../../../widgets/store_card.dart';
+import '../../../widgets/tab_title.dart';
 
 class RecommendedStore extends StatelessWidget {
   const RecommendedStore({super.key});

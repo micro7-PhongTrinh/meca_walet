@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meca_wallet/bloc/connectivity/connectivity_bloc.dart';
 
-import 'featured_membership_card.dart';
-import 'featured_product.dart';
-import 'recommended_store.dart';
+import 'widgets/featured_membership_card.dart';
+import 'widgets/featured_product.dart';
+import 'widgets/recommended_store.dart';
 
 class MWHome extends StatelessWidget {
   const MWHome({

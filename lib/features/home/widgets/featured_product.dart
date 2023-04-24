@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meca_wallet/features/home/bloc/get_featured_product_cubit.dart';
 import 'package:meca_wallet/widgets/featured_product_card.dart';
 
-import '../../widgets/error/featured_product_error.dart';
-import '../../widgets/selected_text_button.dart';
-import '../../widgets/skeleton/featured_product_skeleton.dart';
-import '../../widgets/tab_title.dart';
+import '../../../widgets/error/featured_product_error.dart';
+import '../../../widgets/selected_text_button.dart';
+import '../../../widgets/skeleton/featured_product_skeleton.dart';
+import '../../../widgets/tab_title.dart';
 
 // nay hien thi danh muc theo cac danh muc san pham cua cac cua hang
 class FeaturedProduct extends StatelessWidget {

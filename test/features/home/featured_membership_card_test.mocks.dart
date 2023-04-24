@@ -6,7 +6,7 @@
 import 'dart:async' as _i3;
 
 import 'package:flutter_bloc/flutter_bloc.dart' as _i4;
-import 'package:meca_wallet/features/home/bloc/get_featured_memcard_cubit.dart'
+import 'package:meca_wallet/bloc/common_cubit/get_featured_memcard_cubit.dart'
     as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 
@@ -59,6 +59,15 @@ class MockGetFeaturedMemcardCubit extends _i1.Mock
         Invocation.getter(#isClosed),
         returnValue: false,
       ) as bool);
+  @override
+  _i3.Future<void> getMembershipCardContent() => (super.noSuchMethod(
+        Invocation.method(
+          #getMembershipCardContent,
+          [],
+        ),
+        returnValue: _i3.Future<void>.value(),
+        returnValueForMissingStub: _i3.Future<void>.value(),
+      ) as _i3.Future<void>);
   @override
   void emit(_i2.GetFeaturedMemcardState? state) => super.noSuchMethod(
         Invocation.method(

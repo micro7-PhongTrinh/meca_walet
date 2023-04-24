@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:meca_wallet/features/home/bloc/get_featured_product_cubit.dart';
-import 'package:meca_wallet/features/home/featured_product.dart';
+import 'package:meca_wallet/features/home/widgets/featured_product.dart';
 import 'package:meca_wallet/features/store/store_screen.dart';
 import 'package:meca_wallet/model/featured_product.dart';
 import 'package:meca_wallet/widgets/error/featured_product_error.dart';
@@ -11,7 +11,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:network_image_mock/network_image_mock.dart';
 
-import '../widget_test_extention.dart';
+import '../../widget_test_extention.dart';
 import 'category_tab_test.mocks.dart';
 
 @GenerateMocks(<Type>[GetFeaturedProductCubit])

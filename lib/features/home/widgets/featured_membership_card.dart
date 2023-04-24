@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:meca_wallet/features/home/bloc/get_featured_memcard_cubit.dart';
 
-import '../../widgets/error/featured_memcard_error.dart';
-import '../../widgets/membership_store_card.dart';
-import '../../widgets/membership_store_more_card.dart';
-import '../../widgets/skeleton/membership_card_skeleton.dart';
-import '../../widgets/tab_title.dart';
+import '../../../bloc/common_cubit/get_featured_memcard_cubit.dart';
+import '../../../widgets/tab_title.dart';
+import '../../../widgets/error/featured_memcard_error.dart';
+import '../../../widgets/membership_store_card.dart';
+import '../../../widgets/membership_store_more_card.dart';
+import '../../../widgets/skeleton/membership_card_skeleton.dart';
 
 class FeaturedMembershipCard extends StatelessWidget {
   const FeaturedMembershipCard({super.key});
@@ -15,7 +15,7 @@ class FeaturedMembershipCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (_) => GetFeaturedMemcardCubit()..getMembershipCardContent(),
+        create: (_) => GetFeaturedMemcardCubit(),
         child: Column(
           children: [
             TabTitle(
@@ -39,6 +39,8 @@ class FeaturedMembershipCardBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<GetFeaturedMemcardCubit>(context)
+        .getMembershipCardContent();
     return Column(
       children: const [
         //FeaturedMembershipCardHeader(),
@@ -83,7 +85,7 @@ class FeaturedMembershipCardHolder extends StatelessWidget {
           children: [
             Container(),
             ...List.generate(
-                state.cards.length - 1,
+                2,
                 (index) => Container(
                     margin: EdgeInsets.only(top: 72.0 * index),
                     child: Padding(

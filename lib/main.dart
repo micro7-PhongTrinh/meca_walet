@@ -11,6 +11,7 @@ import 'package:meca_wallet/route/route.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:meca_wallet/utils/custom_theme.dart';
 
+import 'features/membership_card/membership_card_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -66,7 +67,7 @@ class AppView extends StatelessWidget {
           ),
           //test
           //home: const LandingScreen(),
-          home: const MWHome());
+          home: const MembershipCardScreen());
     });
   }
 }

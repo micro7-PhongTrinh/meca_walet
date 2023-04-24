@@ -8,7 +8,7 @@ import 'card_chip.dart';
 import 'card_logo.dart';
 
 class MembershipStoreCard extends StatelessWidget {
-  const MembershipStoreCard({super.key, required this.card});
+  MembershipStoreCard({super.key, required this.card});
 
   final MembershipCardModel card;
 
@@ -21,14 +21,14 @@ class MembershipStoreCard extends StatelessWidget {
         style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
       ));
 
+
   @override
   Widget build(BuildContext context) {
-    final random = Random();
     return Container(
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15.0),
           border: Border.all(color: Colors.white),
-          color: cardColors[random.nextInt(100) % (cardColors.length - 1)]),
+          color: card.cardColor),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
