@@ -15,10 +15,6 @@ class CustomTheme {
     return (inputWidth / designWidth) * constraints.maxWidth;
   }
 
-  double _getProportionateScreenHeight(inputHeight) {
-    return (inputHeight / designHeight) * constraints.maxHeight;
-  }
-
   nunito() => GoogleFonts.nunitoTextTheme(
         TextTheme(
           headline1: TextStyle(

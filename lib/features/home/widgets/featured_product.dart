@@ -1,11 +1,16 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meca_wallet/features/home/bloc/get_featured_product_cubit.dart';
+import 'package:meca_wallet/features/store/store_screen.dart';
 import 'package:meca_wallet/widgets/featured_product_card.dart';
+import 'package:meca_wallet/widgets/rating_star.dart';
 
+import '../../../constants/colors.dart';
 import '../../../widgets/error/featured_product_error.dart';
 import '../../../widgets/selected_text_button.dart';
 import '../../../widgets/skeleton/featured_product_skeleton.dart';
+import '../../../widgets/store_avatar.dart';
 import '../../../widgets/tab_title.dart';
 
 // nay hien thi danh muc theo cac danh muc san pham cua cac cua hang
@@ -106,11 +111,141 @@ class _ProductScrollList extends StatelessWidget {
                     (index) => Container(
                           margin: const EdgeInsets.only(right: 8),
                           child: InkWell(
-                              onTap: () => Navigator.of(context)
-                                  .pushNamed('/storeScreen'),
+                              onTap: () => showDialog<String>(
+                                    context: context,
+                                    builder: (BuildContext context) => Dialog(
+                                      insetAnimationDuration:
+                                          const Duration(seconds: 1),
+                                      insetPadding: EdgeInsets.zero,
+                                      child: SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.5,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.9,
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: <Widget>[
+                                            Expanded(
+                                              flex: 3,
+                                              child: SizedBox(
+                                                width: double.infinity,
+                                                child: CachedNetworkImage(
+                                                  fit: BoxFit.fill,
+                                                  imageUrl: state
+                                                      .products[index]
+                                                      .product
+                                                      .imgUrl,
+                                                  errorWidget: (context, url,
+                                                          error) =>
+                                                      Container(
+                                                          color:
+                                                              kTextColorAccent),
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                                flex: 2,
+                                                child: Padding(
+                                                  padding: const EdgeInsets
+                                                          .symmetric(
+                                                      horizontal: 15,
+                                                      vertical: 10),
+                                                  child: Column(
+                                                    children: [
+                                                      Expanded(
+                                                          flex: 2,
+                                                          child: Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Text(
+                                                                  state
+                                                                      .products[
+                                                                          index]
+                                                                      .product
+                                                                      .name,
+                                                                  style: const TextStyle(
+                                                                      fontSize:
+                                                                          20,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w700)),
+                                                              RatingStar(
+                                                                  ratePoint: state
+                                                                      .products[
+                                                                          index]
+                                                                      .product
+                                                                      .ratePoint),
+                                                            ],
+                                                          )),
+                                                      const SizedBox(height: 5),
+                                                      Expanded(
+                                                          flex: 3,
+                                                          child: Row(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .min,
+                                                            children: [
+                                                              StoreAvatar(
+                                                                  logoUrl: state
+                                                                      .products[
+                                                                          index]
+                                                                      .storeImgUrl),
+                                                              const SizedBox(
+                                                                  width: 10),
+                                                              Column(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .center,
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
+                                                                children: [
+                                                                  Text(
+                                                                    state
+                                                                        .products[
+                                                                            index]
+                                                                        .storeName,
+                                                                    style: const TextStyle(
+                                                                        fontSize:
+                                                                            16,
+                                                                        fontWeight:
+                                                                            FontWeight.bold),
+                                                                  ),
+                                                                  const SizedBox(
+                                                                      height:
+                                                                          5),
+                                                                  Text(
+                                                                      '45 thành viên'),
+                                                                ],
+                                                              ),
+                                                              const Spacer(),
+                                                              TextButton(
+                                                                  onPressed: () => Navigator.of(
+                                                                          context)
+                                                                      .pushNamed(
+                                                                          StoreScreen
+                                                                              .routeName),
+                                                                  child: const Text(
+                                                                      'Truy cập'))
+                                                            ],
+                                                          ))
+                                                    ],
+                                                  ),
+                                                ))
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
                               child: FeaturedProductCard(
                                   key: Key('tategory_product_tab_$index'),
-                                  product: state.products[index])),
+                                  featuredProduct: state.products[index])),
                         )));
           } else if (state is GetFeaturedProductFail) {
             return const FeaturedProductError();

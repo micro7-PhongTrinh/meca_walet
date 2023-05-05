@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:meca_wallet/bloc/common_cubit/get_featured_memcard_cubit.dart';
+import 'package:meca_wallet/constants/colors.dart';
 import 'package:meca_wallet/features/home/widgets/featured_membership_card.dart';
-import 'package:meca_wallet/features/membership_card/membership_card_screen.dart';
+import 'package:meca_wallet/features/overview_membership_card/overview_membership_card_screen.dart';
 import 'package:meca_wallet/model/membership_card.dart';
 import 'package:meca_wallet/widgets/error/featured_memcard_error.dart';
 import 'package:meca_wallet/widgets/membership_store_card.dart';
@@ -21,11 +22,11 @@ void main() {
 
   final List<MembershipCardModel> mockMembershipCards = [
     MembershipCardModel(
-        'Visa', 'assets/images/visa_logo.png', 'Phong Trinh', 18, 12),
+        'Visa', 'assets/images/visa_logo.png', 'Phong Trinh', 18, 12, cardColors[0]),
     MembershipCardModel(
-        'Jollibee', 'assets/images/jollibee_logo.png', 'Phong Trinh', 17, 7),
+        'Jollibee', 'assets/images/jollibee_logo.png', 'Phong Trinh', 17, 7, cardColors[1]),
     MembershipCardModel('Krispy Kreme', 'assets/images/krispy_kreme_logo.png',
-        'Phong Trinh', 23, 9)
+        'Phong Trinh', 23, 9, cardColors[2])
   ];
 
   setUp(() {
@@ -95,7 +96,7 @@ void main() {
 
     await widgetTester.pumpAndSettle();
 
-    expect(find.byType(MembershipCardScreen), findsOneWidget);
+    expect(find.byType(OverviewMembershipCardScreen), findsOneWidget);
   });
   testWidgets(
       'When state in get cards initial, then loading card skeleton is presented',

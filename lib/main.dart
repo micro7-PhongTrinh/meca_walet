@@ -11,7 +11,8 @@ import 'package:meca_wallet/route/route.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:meca_wallet/utils/custom_theme.dart';
 
-import 'features/membership_card/membership_card_screen.dart';
+import 'features/login/login_screen.dart';
+import 'features/store/store_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,30 +23,19 @@ void main() async {
 
   runApp(RepositoryProvider(
       create: (_) => AuthenticationService(),
-      child: MultiBlocProvider(
-          providers: [
-            BlocProvider<ConnectivityBloc>(
-              create: (BuildContext context) =>
-                  ConnectivityBloc()..add(ConnectedConnectivityEvent()),
-            ),
-            BlocProvider<ApplicationSettingBloc>(
-                create: (BuildContext context) =>
-                    ApplicationSettingBloc(applicationState)
-                      ..add(CheckUserLoggedinEvent())),
-            BlocProvider<AuthenticationBloc>(
-                create: (BuildContext context) => AuthenticationBloc(
-                    authenticationService:
-                        context.read<AuthenticationService>()))
-          ],
-          child: MultiBlocListener(listeners: [
-            BlocListener<ApplicationSettingBloc, ApplicationSettingState>(
-                listener:
-                    (BuildContext context, ApplicationSettingState state) {
-              if (state is UserLoggedinState) {
-                //TODOO handle user logged in
-              }
-            }),
-          ], child: const AppView()))));
+      child: MultiBlocProvider(providers: [
+        BlocProvider<ConnectivityBloc>(
+          create: (BuildContext context) =>
+              ConnectivityBloc()..add(ConnectedConnectivityEvent()),
+        ),
+        BlocProvider<ApplicationSettingBloc>(
+            create: (BuildContext context) =>
+                ApplicationSettingBloc(applicationState)
+                  ..add(CheckUserLoggedinEvent())),
+        BlocProvider<AuthenticationBloc>(
+            create: (BuildContext context) => AuthenticationBloc(
+                authenticationService: context.read<AuthenticationService>()))
+      ], child: const AppView())));
 }
 
 class AppView extends StatelessWidget {
@@ -67,7 +57,7 @@ class AppView extends StatelessWidget {
           ),
           //test
           //home: const LandingScreen(),
-          home: const MembershipCardScreen());
+          home: const LoginScreen());
     });
   }
 }

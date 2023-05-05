@@ -1,7 +1,4 @@
-import 'dart:math';
 import 'dart:ui';
-
-import '../constants/colors.dart';
 
 class MembershipCardModel {
   final String name;
@@ -9,12 +6,8 @@ class MembershipCardModel {
   final String ownerName;
   final int openDate;
   final int openMonth;
-  late Color? cardColor;
+  final Color cardColor;
 
-  MembershipCardModel(
-      this.name, this.imageUrl, this.ownerName, this.openDate, this.openMonth,
-      {this.cardColor}) {
-    cardColor = cardColor ??
-        cardColors[Random().nextInt(100) % (cardColors.length - 1)];
-  }
+  const MembershipCardModel(this.name, this.imageUrl, this.ownerName,
+      this.openDate, this.openMonth, this.cardColor);
 }

@@ -1,8 +1,9 @@
-class FeaturedProductModel {
-  final String name;
-  final String imgUrl;
-  final String storeName;
-  final double ratePoint;
+import 'package:meca_wallet/model/product_model.dart';
 
-  FeaturedProductModel(this.name, this.imgUrl, this.storeName, this.ratePoint);
+class FeaturedProductModel {
+  final ProductModel product;
+  final String storeImgUrl;
+  final String storeName;
+
+  FeaturedProductModel(this.product, this.storeImgUrl, this.storeName);
 }

@@ -1,14 +1,11 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:meca_wallet/model/membership_card.dart';
 
-import '../constants/colors.dart';
 import 'card_chip.dart';
 import 'card_logo.dart';
 
 class MembershipStoreCard extends StatelessWidget {
-  MembershipStoreCard({super.key, required this.card});
+  const MembershipStoreCard({super.key, required this.card});
 
   final MembershipCardModel card;
 
@@ -20,7 +17,6 @@ class MembershipStoreCard extends StatelessWidget {
         textScaleFactor: 2,
         style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
       ));
-
 
   @override
   Widget build(BuildContext context) {

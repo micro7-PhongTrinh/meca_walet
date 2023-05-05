@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 
 import '../constants/colors.dart';
 import '../model/featured_product.dart';
+import 'rating_star.dart';
 
 class FeaturedProductCard extends StatelessWidget {
-  const FeaturedProductCard({super.key, required this.product});
-  final FeaturedProductModel product;
+  const FeaturedProductCard({super.key, required this.featuredProduct});
+  final FeaturedProductModel featuredProduct;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -29,7 +30,7 @@ class FeaturedProductCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Image.network(
-                product.imgUrl,
+                featuredProduct.product.imgUrl,
                 fit: BoxFit.cover,
                 height: double.infinity,
                 width: double.infinity,
@@ -40,7 +41,7 @@ class FeaturedProductCard extends StatelessWidget {
           const SizedBox(height: 5),
           Expanded(
             flex: 1,
-            child: Text(product.name,
+            child: Text(featuredProduct.product.name,
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
                   fontSize: 16,
@@ -50,27 +51,13 @@ class FeaturedProductCard extends StatelessWidget {
           // rating
           Expanded(
               flex: 1,
-              child: Text(product.storeName,
+              child: Text(featuredProduct.storeName,
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.left,
                   style: const TextStyle(color: kTextColorAccent))),
           Expanded(
             flex: 1,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const Icon(
-                  Icons.star,
-                  color: Colors.yellow,
-                  size: 20,
-                ),
-                const SizedBox(width: 5),
-                Text(
-                  product.ratePoint.toString(),
-                  style: TextStyle(fontSize: 14.0, color: Colors.grey.shade600),
-                )
-              ],
-            ),
+            child: RatingStar(ratePoint: featuredProduct.product.ratePoint),
           ),
         ],
       ),
