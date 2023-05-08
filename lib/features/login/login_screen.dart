@@ -20,6 +20,7 @@ class LoginScreen extends StatelessWidget {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (context.read<AuthenticationBloc>().state.status ==
           AutheticationStatus.authenticated) {
+        print('loged in!');
         Navigator.of(context).popAndPushNamed(MWHome.routeName);
       }
     });

@@ -23,9 +23,15 @@ class DefaultFirebaseOptions {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        return ios;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for ios - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -55,29 +61,9 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyBjJnefvIQ9klI6P3AApSUE95fb7BpRNcQ',
-    appId: '1:514069798802:android:bca553a9b28da9e04a6b4b',
+    appId: '1:514069798802:android:19b7f932999c25d64a6b4b',
     messagingSenderId: '514069798802',
     projectId: 'micro7-meca-wallet',
     storageBucket: 'micro7-meca-wallet.appspot.com',
-  );
-
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAEW4ovtGdj5A2iOvz19L2xLsu2dZE23GQ',
-    appId: '1:514069798802:ios:ed02800f80e2a3764a6b4b',
-    messagingSenderId: '514069798802',
-    projectId: 'micro7-meca-wallet',
-    storageBucket: 'micro7-meca-wallet.appspot.com',
-    iosClientId: '514069798802-ltq34hhf93ptuuhdiumhtudepje7bc58.apps.googleusercontent.com',
-    iosBundleId: 'com.micro7.mecaWallet',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyAEW4ovtGdj5A2iOvz19L2xLsu2dZE23GQ',
-    appId: '1:514069798802:ios:ed02800f80e2a3764a6b4b',
-    messagingSenderId: '514069798802',
-    projectId: 'micro7-meca-wallet',
-    storageBucket: 'micro7-meca-wallet.appspot.com',
-    iosClientId: '514069798802-ltq34hhf93ptuuhdiumhtudepje7bc58.apps.googleusercontent.com',
-    iosBundleId: 'com.micro7.mecaWallet',
   );
 }
