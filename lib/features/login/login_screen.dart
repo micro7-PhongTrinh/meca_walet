@@ -17,96 +17,92 @@ class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (context.read<AuthenticationBloc>().state.status ==
-          AutheticationStatus.authenticated) {
-        print('loged in!');
-        Navigator.of(context).popAndPushNamed(MWHome.routeName);
-      }
-    });
     return BlocProvider<GoogleSignupBloc>(
-      create: (_) => GoogleSignupBloc(context.read<AuthenticationService>()),
-      child: BlocListener<AuthenticationBloc, AuthenticationState>(
-          listener: (context, state) {
-            if (state.status == AutheticationStatus.authenticated) {
-              Navigator.of(context).popAndPushNamed(MWHome.routeName);
-            }
-          },
-          listenWhen: (previous, current) => true,
-          child: _SigninBody()),
-    );
+        create: (_) =>
+            GoogleSignupBloc(context.read<AuthenticationService>()),
+        child: _SigninBody());
   }
 }
 
 class _SigninBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: SafeArea(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const BackButtonLS(),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16,
-              ),
-              child: Column(
-                children: [
-                  Row(
+    return BlocListener<GoogleSignupBloc, GoogleSignupState>(
+        listener: (context, state) {
+          if (state is GoogleSignupSucceedState) {
+            BlocProvider.of<AuthenticationBloc>(context)
+                .add(UserChanged(state.user));
+          }
+        },
+        listenWhen: (previous, current) => true,
+        child: Scaffold(
+            body: SafeArea(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const BackButtonLS(),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                  ),
+                  child: Column(
                     children: [
-                      Text(
-                        'Log In Continue!',
-                        style:
-                            Theme.of(context).textTheme.displaySmall?.copyWith(
+                      Row(
+                        children: [
+                          Text(
+                            'Log In Continue!',
+                            style: Theme.of(context)
+                                .textTheme
+                                .displaySmall
+                                ?.copyWith(
                                   fontWeight: FontWeight.bold,
                                 ),
+                          ),
+                        ],
                       ),
+                      const Spacer(),
+                      const SocialMediaLogin(
+                        method: 'Login',
+                      ),
+                      const Spacer(),
+                      const OrRow(),
+                      const Spacer(),
+                      const TextFields(),
+                      const Spacer(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: const [
+                          Text(
+                            'Forgot Password?',
+                            style: TextStyle(
+                              color: kPrimaryPurple,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const Spacer(),
+                      ElevatedButton(
+                        onPressed: () {},
+                        child: const Text('Login'),
+                      ),
+                      const Spacer(
+                        flex: 4,
+                      ),
+                      OptionButton(
+                        desc: 'Don\'t have an account? ',
+                        method: 'Sign Up',
+                        onPressHandler: () {},
+                      ),
+                      const Spacer(),
                     ],
                   ),
-                  const Spacer(),
-                  const SocialMediaLogin(
-                    method: 'Login',
-                  ),
-                  const Spacer(),
-                  const OrRow(),
-                  const Spacer(),
-                  const TextFields(),
-                  const Spacer(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: const [
-                      Text(
-                        'Forgot Password?',
-                        style: TextStyle(
-                          color: kPrimaryPurple,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const Spacer(),
-                  ElevatedButton(
-                    onPressed: () {},
-                    child: const Text('Login'),
-                  ),
-                  const Spacer(
-                    flex: 4,
-                  ),
-                  OptionButton(
-                    desc: 'Don\'t have an account? ',
-                    method: 'Sign Up',
-                    onPressHandler: () {},
-                  ),
-                  const Spacer(),
-                ],
+                ),
               ),
-            ),
+            ],
           ),
-        ],
-      ),
-    ));
+        )));
   }
 }
 

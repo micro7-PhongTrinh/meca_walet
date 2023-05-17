@@ -8,8 +8,12 @@ class LogoutRequested extends AuthenticationEvent {
   const LogoutRequested();
 }
 
-class _UserChanged extends AuthenticationEvent {
-  const _UserChanged(this.user);
+class UserChanged extends AuthenticationEvent {
+  const UserChanged(this.user);
 
-  final UserModel user;
+  final User? user;
+}
+
+class CheckUserLoggedIn extends AuthenticationEvent {
+  const CheckUserLoggedIn();
 }

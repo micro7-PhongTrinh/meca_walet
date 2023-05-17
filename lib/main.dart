@@ -6,6 +6,7 @@ import 'package:meca_wallet/bloc/application_setting/application_setting_bloc.da
 import 'package:meca_wallet/bloc/authentication/authentication/authentication_bloc.dart';
 import 'package:meca_wallet/bloc/connectivity/connectivity_bloc.dart';
 import 'package:meca_wallet/features/home/home_screen.dart';
+import 'package:meca_wallet/features/splash/splash_screen.dart';
 import 'package:meca_wallet/firebase_options.dart';
 import 'package:meca_wallet/route/route.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -34,7 +35,8 @@ void main() async {
                   ..add(CheckUserLoggedinEvent())),
         BlocProvider<AuthenticationBloc>(
             create: (BuildContext context) => AuthenticationBloc(
-                authenticationService: context.read<AuthenticationService>()))
+                authenticationService: context.read<AuthenticationService>())
+              ..add(const CheckUserLoggedIn()))
       ], child: const AppView())));
 }
 
@@ -57,7 +59,7 @@ class AppView extends StatelessWidget {
           ),
           //test
           //home: const LandingScreen(),
-          home: const LoginScreen());
+          home: const SplashScreen());
     });
   }
 }

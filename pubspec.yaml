@@ -47,6 +47,8 @@ dependencies:
   google_fonts: ^4.0.3
   authentication:
     path: packages/authentication
+  meca_service:
+    path: packages/meca_service
   card_swiper: ^2.0.4
   cached_network_image: ^3.2.3
   flutter_native_splash: ^2.2.19

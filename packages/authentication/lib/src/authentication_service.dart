@@ -1,32 +1,21 @@
-import 'package:authentication/src/user_model.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:meca_service/meca_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'authentication_exception.dart';
 
 class AuthenticationService {
   final GoogleSignIn _googleSignIn;
-  final FirebaseAuth _firebaseAuth;
-  late UserModel _user = UserModel.empty;
+  final MecaService _mecaService;
+  User? _user;
 
-  AuthenticationService(
-      {GoogleSignIn? googleSignIn, FirebaseAuth? firebaseAuth})
+  User? get user => _user;
+
+  AuthenticationService({GoogleSignIn? googleSignIn, MecaService? mecaService})
       : _googleSignIn = googleSignIn ?? GoogleSignIn(),
-        _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance;
+        _mecaService = mecaService ?? MecaService();
 
-  Stream<UserModel> get user {
-    return _firebaseAuth.authStateChanges().map((firebaseUser) {
-      _user =
-          firebaseUser == null ? UserModel.empty : toUserModel(firebaseUser);
-      return _user;
-    });
-  }
-
-  UserModel get currentUser {
-    return _user;
-  }
-
-  Future<UserModel> signinGoogle() async {
+  Future<User> signinGoogle() async {
     GoogleSignInAccount? account;
     try {
       account = await _googleSignIn.signIn();
@@ -37,53 +26,47 @@ class AuthenticationService {
 
     //get GG account credential to sign in firebase
 
-    final OAuthCredential oAuthCredential =
-        await _getCredentialFromAccount(account);
+    await _signInMecaServer(account);
 
-    await _signInFirebase(oAuthCredential);
-
-    return await getCurrentUser();
+    return getCurrentUser();
   }
 
   Future signoutGoogle() async {
-    if (_firebaseAuth.currentUser == null) return;
+    if (_user == null) return;
     try {
       await _googleSignIn.disconnect();
       await _googleSignIn.signOut();
-      _firebaseAuth.signOut();
     } catch (e) {
       throw (Exception(e));
     }
   }
 
-  Future<UserModel> getCurrentUser() async {
-    final User? firebaseUser = _firebaseAuth.currentUser;
-    if (firebaseUser == null) {
-      throw AuthenticationFailedException.userNotFound();
+  // For whether user login or not
+  Future<User> checkLoggedInUser() async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    var jwt = localStorage.getString('jwt');
+    if (jwt != null) {
+      GoogleSignInAccount? account = await GoogleSignIn().signInSilently();
+      if (account == null) throw AuthenticationFailedException.userNotFound();
+      await _signInMecaServer(account);
     }
-    return toUserModel(firebaseUser);
+
+    return getCurrentUser();
   }
 
-  UserModel toUserModel(User user) {
-    return UserModel(
-        name: user.displayName,
-        email: user.email,
-        phone: user.phoneNumber,
-        avatarUrl: user.photoURL);
-  }
-
-  Future<OAuthCredential> _getCredentialFromAccount(
-      GoogleSignInAccount account) async {
+  Future<void> _signInMecaServer(GoogleSignInAccount account) async {
     final GoogleSignInAuthentication googleAuth = await account.authentication;
-    return GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
-  }
 
-  Future<void> _signInFirebase(AuthCredential oAuthCredential) async {
     try {
-      await _firebaseAuth.signInWithCredential(oAuthCredential);
+      _user = await _mecaService.authWithGoogle(googleAuth.accessToken!);
+      print('accessToken: ' + googleAuth.accessToken!);
     } catch (e) {
       throw AuthenticationFailedException.otherError();
     }
+  }
+
+  User getCurrentUser() {
+    if (_user == null) throw AuthenticationException('User not found');
+    return _user!;
   }
 }

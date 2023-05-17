@@ -24,8 +24,6 @@ class SelectedTextButton extends StatelessWidget {
           ),
           onPressed: () {
             onTap();
-            Scrollable.ensureVisible(context,
-                duration: const Duration(milliseconds: 400));
           },
           child: Padding(
             padding:

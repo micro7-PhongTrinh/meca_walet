@@ -5,13 +5,15 @@ class TabTitle extends StatelessWidget {
   final String actionText;
   final Function? seeAll;
   final double padding;
+  final Color? color;
 
   const TabTitle(
       {super.key,
       required this.title,
       this.seeAll,
       this.actionText = 'Tất cả',
-      this.padding = 16});
+      this.padding = 16,
+      this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,10 @@ class TabTitle extends StatelessWidget {
           Expanded(
             child: Text(
               title,
-              style: Theme.of(context).textTheme.headlineSmall,
+              style: Theme.of(context)
+                  .textTheme
+                  .headlineSmall!
+                  .apply(color: color),
             ),
           ),
           if (seeAll != null)

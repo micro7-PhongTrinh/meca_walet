@@ -5,7 +5,7 @@ abstract class GoogleSignupState {}
 class GoogleSignupInitialState extends GoogleSignupState {}
 
 class GoogleSignupSucceedState extends GoogleSignupState {
-  final UserModel user;
+  final User user;
 
   GoogleSignupSucceedState(this.user);
 }

@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meca_wallet/constants/colors.dart';
 
-import '../../model/membership_card.dart';
-import '../../utils/random_card_color.dart';
 import 'bloc/get_event_cubit.dart';
 import 'bloc/get_memcard_cubit.dart';
 import 'bloc/get_product_cubit.dart';

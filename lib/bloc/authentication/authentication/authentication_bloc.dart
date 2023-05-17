@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:authentication/authentication.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:meca_service/data/user.dart';
 
 part 'authentication_event.dart';
 part 'authentication_state.dart';
@@ -11,27 +13,22 @@ class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
   AuthenticationBloc({required AuthenticationService authenticationService})
       : _authenticationService = authenticationService,
-        super(
-          authenticationService.currentUser.isNotEmpty
-              ? AuthenticationState.authenticated(
-                  authenticationService.currentUser)
-              : const AuthenticationState.unauthenticated(),
-        ) {
-    on<_UserChanged>(_onUserChanged);
+        super(AuthenticationInitailState()) {
+    on<UserChanged>(_onUserChanged);
     on<LogoutRequested>(_onLogoutRequested);
-    _userSubscription = _authenticationService.user.listen(
-      (user) => add(_UserChanged(user)),
-    );
+    on<CheckUserLoggedIn>(_onCheckUserLoggedIn);
+    // _userSubscription = _authenticationService.user.listen(
+    //   (user) => add(_UserChanged(user)),
+    // );
   }
 
   final AuthenticationService _authenticationService;
-  late final StreamSubscription<UserModel> _userSubscription;
 
-  void _onUserChanged(_UserChanged event, Emitter<AuthenticationState> emit) {
+  void _onUserChanged(UserChanged event, Emitter<AuthenticationState> emit) {
     emit(
-      event.user.isNotEmpty
-          ? AuthenticationState.authenticated(event.user)
-          : const AuthenticationState.unauthenticated(),
+      event.user != null
+          ? AuthenticatedState(event.user!)
+          : UnauthenticatedState(),
     );
   }
 
@@ -40,9 +37,13 @@ class AuthenticationBloc
     unawaited(_authenticationService.signoutGoogle());
   }
 
-  @override
-  Future<void> close() {
-    _userSubscription.cancel();
-    return super.close();
+  Future<void> _onCheckUserLoggedIn(
+      CheckUserLoggedIn evnt, Emitter<AuthenticationState> emit) async {
+    try {
+      User user = await _authenticationService.checkLoggedInUser();
+      emit(AuthenticatedState(user));
+    } catch (e) {
+      emit(UnauthenticatedState());
+    }
   }
 }

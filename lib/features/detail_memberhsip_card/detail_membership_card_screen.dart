@@ -51,7 +51,7 @@ class DetailMembershipCardScreen extends StatelessWidget {
         child: Column(
           children: [
             const AccumulatedPoint(),
-            const SizedBox(height: 15),
+            const SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 40),
               child: MembershipStoreCard(
@@ -64,8 +64,9 @@ class DetailMembershipCardScreen extends StatelessWidget {
                     cardColors[0]),
               ),
             ),
-            const SizedBox(height: 15),
+            const SizedBox(height: 30),
             const UtilityPanel(),
+            const SizedBox(height: 30),
             const TransactionHistory()
           ],
         ),
