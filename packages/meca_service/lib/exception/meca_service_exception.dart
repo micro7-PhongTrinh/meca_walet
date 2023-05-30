@@ -15,3 +15,7 @@ class OtherException extends MecaServiceException {
 class DataMappingException extends MecaServiceException {
   DataMappingException(super.error);
 }
+
+class SigninFailRequest extends MecaServiceException {
+  SigninFailRequest(super.error);
+}

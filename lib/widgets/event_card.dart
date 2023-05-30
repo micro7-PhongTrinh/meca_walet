@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
+import 'package:meca_service/data/event.dart';
 
-import '../model/event_card.dart';
 import '../utils/datetime_utils.dart';
 
 class EventCard extends StatelessWidget {
   const EventCard({super.key, required this.event});
-  final EventCardModel event;
+  final Event event;
 
   @override
   Widget build(BuildContext context) {

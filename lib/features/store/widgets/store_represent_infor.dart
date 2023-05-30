@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:meca_service/data/store.dart';
+
+import '../store_screen.dart';
 
 class StoreRepresentInfor extends StatelessWidget {
   const StoreRepresentInfor({
     super.key,
-    required this.title,
-    required this.logoUrl,
   });
-  final String title;
-  final String logoUrl;
 
   @override
   Widget build(BuildContext context) {
+    final Store store = StoreValue.of(context).store;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -20,7 +20,7 @@ class StoreRepresentInfor extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              title,
+              store.name,
               style: const TextStyle(
                   color: Colors.black,
                   fontSize: 24,
@@ -44,7 +44,7 @@ class StoreRepresentInfor extends StatelessWidget {
             child: ClipRRect(
                 borderRadius: BorderRadius.circular(8.0),
                 child: Image.network(
-                  logoUrl,
+                  store.logoUrl,
                   fit: BoxFit.fill,
                 )))
       ],

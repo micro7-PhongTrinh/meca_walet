@@ -12,7 +12,7 @@ class GetEventInitial extends GetEventState {}
 class GetEventLoading extends GetEventState {}
 
 class GetEventSuccess extends GetEventState {
-  final List<EventCardModel> events;
+  final List<Event> events;
 
   const GetEventSuccess(this.events);
 }

@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:meca_wallet/bloc/common_cubit/get_featured_memcard_cubit.dart';
 import 'package:meca_wallet/constants/colors.dart';
-import 'package:meca_wallet/features/detail_memberhsip_card/detail_membership_card_screen.dart';
 import 'package:meca_wallet/features/overview_membership_card/widgets/scrollable_list_card.dart';
 import 'package:meca_wallet/model/membership_card.dart';
 import 'package:meca_wallet/widgets/error/list_memcard_error.dart';

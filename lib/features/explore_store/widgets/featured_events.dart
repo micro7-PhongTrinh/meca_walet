@@ -13,9 +13,9 @@ class FeaturedEvents extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     BlocProvider.of<GetFeaturedEventsCubit>(context).getFeaturedEvents();
-    return Column(
+    return const Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: const [
+      children:  [
         TabTitle(title: 'Sự kiện đang diễn ra', padding: 0),
         SizedBox(
           height: 10,
@@ -43,7 +43,8 @@ class FeaturedEventItems extends StatelessWidget {
                     state.events.length,
                     (index) => InkWell(
                           onTap: () => Navigator.of(context)
-                              .pushNamed(StoreScreen.routeName),
+                              .pushNamed(StoreScreen.routeName,arguments: state.events[index].storeId
+                        ),
                           child: Container(
                               margin: const EdgeInsets.only(right: 15),
                               child: FeaturedItem(

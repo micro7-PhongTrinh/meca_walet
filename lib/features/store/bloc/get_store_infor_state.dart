@@ -12,7 +12,7 @@ class GetStoreInforInitial extends GetStoreInforState {}
 class GetStoreInforLoading extends GetStoreInforState {}
 
 class GetStoreInforSuccess extends GetStoreInforState {
-  final StoreModel store;
+  final Store store;
 
   const GetStoreInforSuccess(this.store);
 }

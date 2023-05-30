@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import '../../../model/featured_product.dart';
+import 'package:meca_service/data/product.dart';
 
 class StoreProductCard extends StatelessWidget {
-  const StoreProductCard({super.key, required this.featuredProduct});
-  final FeaturedProductModel featuredProduct;
+  const StoreProductCard({super.key, required this.product});
+  final Product product;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -16,16 +16,19 @@ class StoreProductCard extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            height: double.maxFinite,
-            clipBehavior: Clip.hardEdge,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Image.network(
-              featuredProduct.product.imgUrl,
-              fit: BoxFit.fill,
-              errorBuilder: (context, error, stackTrace) => Container(),
+          AspectRatio(
+            aspectRatio: 1.0,
+            child: Container(
+              height: double.maxFinite,
+              clipBehavior: Clip.hardEdge,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Image.network(
+                product.imgUrl,
+                fit: BoxFit.fill,
+                errorBuilder: (context, error, stackTrace) => Container(),
+              ),
             ),
           ),
           Expanded(
@@ -35,33 +38,28 @@ class StoreProductCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(featuredProduct.product.name,
+                  Text(product.name,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       )),
 
-                  Row(
+                  const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text('45.000đ',
+                      Text('45.000đ',
                           style: TextStyle(
                               fontSize: 18, fontWeight: FontWeight.w500)),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          const Icon(
+                          Icon(
                             Icons.star,
                             color: Colors.yellow,
                             size: 20,
                           ),
-                          const SizedBox(width: 5),
-                          Text(
-                            featuredProduct.product.ratePoint.toString(),
-                            style: TextStyle(
-                                fontSize: 14.0, color: Colors.grey.shade600),
-                          )
+                          SizedBox(width: 5)
                         ],
                       ),
                     ],

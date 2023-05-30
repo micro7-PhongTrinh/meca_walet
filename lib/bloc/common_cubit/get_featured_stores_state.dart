@@ -13,7 +13,7 @@ class GetFeaturedStoresInitial extends GetFeaturedStoresState {}
 class GetFeaturedStoresLoading extends GetFeaturedStoresState {}
 
 class GetFeaturedStoresSuccess extends GetFeaturedStoresState {
-  final List<StoreModel> stores;
+  final List<Store> stores;
 
   const GetFeaturedStoresSuccess(this.stores);
 

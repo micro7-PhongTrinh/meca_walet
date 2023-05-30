@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meca_wallet/constants/colors.dart';
-import 'package:meca_wallet/features/searhing_store/searching_store_screen.dart';
+import 'package:meca_service/meca_service.dart';
 
+import '../../bloc/common_cubit/get_featured_stores_cubit.dart';
 import '../../widgets/selected_text_button.dart';
 import 'bloc/get_featured_events_cubit.dart';
-import 'bloc/get_featured_stores_cubit.dart';
 import 'bloc/get_hot_coupons_cubit.dart';
 import 'widgets/explore_store_appbar.dart';
 import 'widgets/featured_events.dart';
@@ -30,7 +29,7 @@ class ExploreStoreScreen extends StatelessWidget {
       body: MultiBlocProvider(
         providers: [
           BlocProvider<GetFeaturedStoresCubit>(
-              create: (_) => GetFeaturedStoresCubit()),
+              create: (_) => GetFeaturedStoresCubit(mecaService:  RepositoryProvider.of<MecaService>(context))),
           BlocProvider<GetFeaturedEventsCubit>(
               create: (_) => GetFeaturedEventsCubit()),
           BlocProvider<GetHotCoupounsCubit>(

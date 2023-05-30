@@ -12,7 +12,7 @@ class GetFeaturedMemcardInitial extends GetFeaturedMemcardState {}
 class GetFeaturedMemcardLoading extends GetFeaturedMemcardState {}
 
 class GetFeaturedMemcardSuccess extends GetFeaturedMemcardState {
-  final List<MembershipCardModel> cards;
+  final List<MemberCard> cards;
   final int cardTotal;
 
   const GetFeaturedMemcardSuccess(this.cards, this.cardTotal);
@@ -20,5 +20,7 @@ class GetFeaturedMemcardSuccess extends GetFeaturedMemcardState {
   @override
   List<Object?> get props => [cards];
 }
+
+class EmptyMemcard extends GetFeaturedMemcardState {}
 
 class GetFeaturedMemcardFail extends GetFeaturedMemcardState {}

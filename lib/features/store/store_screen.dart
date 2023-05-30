@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:meca_service/data/store.dart';
+import 'package:meca_service/meca_service.dart';
 
 import 'bloc/get_event_cubit.dart';
 import 'bloc/get_memcard_cubit.dart';
@@ -18,11 +20,18 @@ class StoreScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final int id = ModalRoute.of(context)!.settings.arguments as int;
+    final MecaService mecaService = RepositoryProvider.of<MecaService>(context);
     return MultiBlocProvider(providers: [
-      BlocProvider(create: (context) => GetStoreInforCubit()),
-      BlocProvider<GetMemcardCubit>(create: (context) => GetMemcardCubit()),
-      BlocProvider<GetEventCubit>(create: (context) => GetEventCubit()),
-      BlocProvider<GetProductCubit>(create: (context) => GetProductCubit())
+      BlocProvider(
+          create: (context) =>
+              GetStoreInforCubit(mecaService: mecaService, id: id.toString())),
+      BlocProvider<GetMemcardCubit>(
+          create: (context) => GetMemcardCubit(mecaService: mecaService)),
+      BlocProvider<GetEventCubit>(
+          create: (context) => GetEventCubit(mecaService: mecaService)),
+      BlocProvider<GetProductCubit>(
+          create: (context) => GetProductCubit(mecaService: mecaService))
     ], child: StoreScreenView());
   }
 }
@@ -40,7 +49,7 @@ class _StoreScreenState extends State<StoreScreenView> {
 
   @override
   void initState() {
-    BlocProvider.of<GetStoreInforCubit>(context).getStoreInfor('123');
+    BlocProvider.of<GetStoreInforCubit>(context).getStoreInfor();
     widget._scrollController.addListener(() {
       setState(() {
         _isSliverAppBarExpanded = widget._scrollController.hasClients &&
@@ -64,8 +73,7 @@ class _StoreScreenState extends State<StoreScreenView> {
                   isSliverAppBarExpanded: _isSliverAppBarExpanded,
                   title: state.store.name,
                   imgUrls: state.store.imgUrl),
-              StorescreenBody(
-                  title: state.store.name, logoUrl: state.store.logoUrl)
+              StorescreenBody(store: state.store)
             ],
           );
         }
@@ -75,29 +83,53 @@ class _StoreScreenState extends State<StoreScreenView> {
   }
 }
 
+class StoreValue extends InheritedWidget {
+  const StoreValue({super.key, required this.store, required super.child});
+
+  final Store store;
+
+  static StoreValue? maybeOf(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<StoreValue>();
+  }
+
+  static StoreValue of(BuildContext context) {
+    final StoreValue? result = maybeOf(context);
+    assert(result != null, 'No FrogColor found in context');
+    return result!;
+  }
+
+  @override
+  bool updateShouldNotify(StoreValue oldWidget) => store != oldWidget.store;
+}
+
 class StorescreenBody extends StatelessWidget {
   const StorescreenBody({
     super.key,
-    required this.title,
-    required this.logoUrl,
+    required this.store,
   });
-  final String title;
-  final String logoUrl;
+  final Store store;
 
   @override
   Widget build(BuildContext context) {
-    return SliverPadding(
-      padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
-      sliver: SliverList(
-        delegate: SliverChildListDelegate([
-          StoreRepresentInfor(title: title, logoUrl: logoUrl),
-          const MembershipIntegrateCard(),
-          const HappeningEvents(),
-          const StoreProducts(),
-          const SizedBox(
-            height: 1200,
-          )
-        ]),
+    return StoreValue(
+      store: store,
+      child: SliverPadding(
+        padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+        sliver: SliverList(
+          delegate: SliverChildListDelegate([
+            const Column(
+              children: [
+                StoreRepresentInfor(),
+                MembershipIntegrateCard(),
+                HappeningEvents(),
+                StoreProducts(),
+                SizedBox(
+                  height: 1200,
+                )
+              ],
+            )
+          ]),
+        ),
       ),
     );
   }

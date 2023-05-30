@@ -1,11 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:meca_wallet/model/store_card.dart';
+import 'package:meca_service/data/store.dart';
 import '../constants/colors.dart';
 
 class StoreCard extends StatelessWidget {
-  const StoreCard({super.key, required this.card});
-  final StoreCardModel card;
+  const StoreCard({super.key, required this.store});
+  final Store store;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -17,7 +17,8 @@ class StoreCard extends StatelessWidget {
       ),
       decoration: ShapeDecoration(
         image: DecorationImage(
-            fit: BoxFit.fill, image: CachedNetworkImageProvider(card.imgUrl)),
+            fit: BoxFit.fill,
+            image: CachedNetworkImageProvider(store.imgUrl[0])),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
         ),
@@ -39,7 +40,7 @@ class StoreCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              card.name,
+              store.name,
               style: const TextStyle(
                 color: Colors.white,
                 fontSize: 20,
@@ -49,7 +50,7 @@ class StoreCard extends StatelessWidget {
             Text(
               maxLines: 1,
               overflow: TextOverflow.fade,
-              card.location,
+              store.location,
               style: const TextStyle(
                 color: Colors.white,
               ),

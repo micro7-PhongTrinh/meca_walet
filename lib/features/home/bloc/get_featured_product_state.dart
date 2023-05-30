@@ -12,7 +12,7 @@ class GetFeaturedProductInitial extends GetFeaturedProductState {}
 class GetFeaturedProductLoading extends GetFeaturedProductState {}
 
 class GetFeaturedProductSuccess extends GetFeaturedProductState {
-  final List<FeaturedProductModel> products;
+  final List<Product> products;
 
   const GetFeaturedProductSuccess(this.products);
 }

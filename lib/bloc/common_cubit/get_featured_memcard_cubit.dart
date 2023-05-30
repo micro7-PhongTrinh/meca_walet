@@ -1,34 +1,50 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meca_wallet/model/membership_card.dart';
-
-import '../../constants/colors.dart';
+import 'package:meca_service/data/member_card.dart';
+import 'package:meca_service/data/featured_member_card.dart';
+import 'package:meca_service/meca_service.dart';
+import 'package:meca_wallet/features/store/bloc/get_memcard_cubit.dart';
 
 part 'get_featured_memcard_state.dart';
 
 class GetFeaturedMemcardCubit extends Cubit<GetFeaturedMemcardState> {
-  GetFeaturedMemcardCubit() : super(GetFeaturedMemcardInitial());
+  GetFeaturedMemcardCubit({required mecaService})
+      : _mecaService = mecaService,
+        super(GetFeaturedMemcardInitial()) {
+    _mecaService.memcard.listen((memcard) {
+      getFeaturedMemberCards();
+    });
+  }
 
-  Future<void> getMembershipCardContent() async {
+  final MecaService _mecaService;
+
+  Future<void> getFeaturedMemberCards() async {
     emit(GetFeaturedMemcardLoading());
 
     await Future.delayed(const Duration(seconds: 1));
 
-    List<MembershipCardModel> cards = [
-      MembershipCardModel('Visa', 'assets/images/visa_logo.png', 'Phong Trinh',
-          18, 12, cardColors[0]),
-      MembershipCardModel('Jollibee', 'assets/images/jollibee_logo.png',
-          'Phong Trinh', 17, 7, cardColors[1]),
-      MembershipCardModel('Krispy Kreme', 'assets/images/krispy_kreme_logo.png',
-          'Phong Trinh', 23, 9, cardColors[2]),
-      MembershipCardModel('Visa', 'assets/images/visa_logo.png', 'Phong Trinh',
-          18, 12, cardColors[3]),
-      MembershipCardModel('Jollibee', 'assets/images/jollibee_logo.png',
-          'Phong Trinh', 17, 7, cardColors[4]),
-      MembershipCardModel('Krispy Kreme', 'assets/images/krispy_kreme_logo.png',
-          'Phong Trinh', 23, 9, cardColors[5])
-    ];
+    FeaturedMemberCard featuredCards =
+        await _mecaService.getFeaturedMemberCards();
+    try {
+      if (featuredCards.cards.isEmpty) {
+        emit(EmptyMemcard());
+      } else {
+        emit(GetFeaturedMemcardSuccess(
+            featuredCards.cards, featuredCards.total));
+      }
+    } catch (e) {
+      emit(GetFeaturedMemcardFail());
+    }
+  }
 
-    emit(GetFeaturedMemcardSuccess(cards, 6));
+  Future<void> getAllMembershipCards() async {
+    emit(GetFeaturedMemcardLoading());
+
+    await Future.delayed(const Duration(seconds: 1));
+
+    FeaturedMemberCard featuredCards =
+        await _mecaService.getFeaturedMemberCards();
+
+    emit(GetFeaturedMemcardSuccess(featuredCards.cards, featuredCards.total));
   }
 }

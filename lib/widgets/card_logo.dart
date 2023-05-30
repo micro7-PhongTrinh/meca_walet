@@ -1,3 +1,4 @@
+import "package:cached_network_image/cached_network_image.dart";
 import "package:flutter/material.dart";
 
 class CardLogo extends StatelessWidget {
@@ -11,7 +12,7 @@ class CardLogo extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
-          Image(image: AssetImage(urlImage), height: 24),
+          Image(image: CachedNetworkImageProvider(urlImage), height: 48),
           const Text(
             'Membership card',
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.w400),

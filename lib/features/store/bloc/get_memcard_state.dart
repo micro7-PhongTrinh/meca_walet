@@ -12,9 +12,11 @@ class GetMemcardInitial extends GetMemcardState {}
 class GetMemcardLoading extends GetMemcardState {}
 
 class GetMemcardSuccess extends GetMemcardState {
-  final MembershipCardModel card;
+  final MemberCard card;
 
   const GetMemcardSuccess(this.card);
 }
 
 class GetMemcardFail extends GetMemcardState {}
+
+class NotIntegrateMembership extends GetMemcardState {}

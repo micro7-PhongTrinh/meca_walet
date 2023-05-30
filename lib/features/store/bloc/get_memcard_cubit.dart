@@ -1,19 +1,40 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../constants/colors.dart';
-import '../../../model/membership_card.dart';
+import 'package:meca_service/data/member_card.dart';
+import 'package:meca_service/meca_service.dart';
 
 part 'get_memcard_state.dart';
 
 class GetMemcardCubit extends Cubit<GetMemcardState> {
-  GetMemcardCubit() : super(GetMemcardInitial());
+  GetMemcardCubit({required mecaService})
+      : _mecaService = mecaService,
+        super(GetMemcardInitial());
+
+  final MecaService _mecaService;
 
   Future<void> getStoreMemcard(String storeId) async {
-    await Future.delayed(Duration(seconds: 1));
-    emit(GetMemcardSuccess(
-      MembershipCardModel('Cheese Coffee', 'assets/images/jollibee_logo.png',
-          'Phong Trinh', 21, 3, cardColors[0]),
-    ));
+    emit(GetMemcardLoading());
+    await Future.delayed(const Duration(seconds: 2));
+    try {
+      MemberCard? card = await _mecaService.getDetailMemberCard(storeId);
+      if (card != null) {
+        emit(GetMemcardSuccess(card));
+      } else {
+        emit(NotIntegrateMembership());
+      }
+    } catch (e) {
+      emit(GetMemcardFail());
+    }
+  }
+
+  Future<void> integrateMemcard(String storeId) async {
+    emit(GetMemcardLoading());
+    await Future.delayed(const Duration(seconds: 2));
+    try {
+      MemberCard card = await _mecaService.createDetailMemberCard(storeId);
+      emit(GetMemcardSuccess(card));
+    } catch (e) {
+      emit(GetMemcardFail());
+    }
   }
 }

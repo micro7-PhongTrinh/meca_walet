@@ -13,9 +13,9 @@ class HotCoupons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     BlocProvider.of<GetHotCoupounsCubit>(context).getHotCoupouns();
-    return Column(
+    return const Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: const [
+      children: [
         TabTitle(title: 'Ưu đãi hấp dẫn', padding: 0),
         SizedBox(
           height: 10,
@@ -41,15 +41,15 @@ class HotCouponItems extends StatelessWidget {
                 children: List.generate(
                     state.coupons.length,
                     (index) => InkWell(
-                      onTap: () => Navigator.of(context)
+                          onTap: () => Navigator.of(context)
                               .pushNamed(StoreScreen.routeName),
-                      child: Container(
-                          margin: const EdgeInsets.only(right: 15),
-                          child: FeaturedItem(
-                              itemtype: ItemType.product,
-                              imgUrl: state.coupons[index].imgUrl,
-                              content: state.coupons[index].name)),
-                    )));
+                          child: Container(
+                              margin: const EdgeInsets.only(right: 15),
+                              child: FeaturedItem(
+                                  itemtype: ItemType.product,
+                                  imgUrl: state.coupons[index].imgUrl,
+                                  content: state.coupons[index].name)),
+                        )));
           }
           return Row(
               children: List.generate(

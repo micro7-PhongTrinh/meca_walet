@@ -45,13 +45,12 @@ dependencies:
   flutter_svg: ^2.0.0+1
   firebase_core: ^2.7.0
   google_fonts: ^4.0.3
-  authentication:
-    path: packages/authentication
   meca_service:
     path: packages/meca_service
   card_swiper: ^2.0.4
   cached_network_image: ^3.2.3
   flutter_native_splash: ^2.2.19
+  intl: ^0.18.1
   
 dev_dependencies:
   flutter_test:

@@ -28,7 +28,9 @@ class UtilityPanel extends StatelessWidget {
                     icon: Icons.storefront,
                     content: 'Cửa hàng',
                     onTap: () => Navigator.of(context)
-                        .pushNamed(StoreScreen.routeName))),
+                        .pushNamed(StoreScreen.routeName,
+                        arguments: 1
+                        ))),
             Expanded(
                 flex: 1,
                 child: AdvancedButton(

@@ -1,19 +1,15 @@
 import 'package:application_state/application_state.dart';
-import 'package:authentication/authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:meca_service/meca_service.dart';
 import 'package:meca_wallet/bloc/application_setting/application_setting_bloc.dart';
 import 'package:meca_wallet/bloc/authentication/authentication/authentication_bloc.dart';
 import 'package:meca_wallet/bloc/connectivity/connectivity_bloc.dart';
-import 'package:meca_wallet/features/home/home_screen.dart';
 import 'package:meca_wallet/features/splash/splash_screen.dart';
 import 'package:meca_wallet/firebase_options.dart';
 import 'package:meca_wallet/route/route.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:meca_wallet/utils/custom_theme.dart';
-
-import 'features/login/login_screen.dart';
-import 'features/store/store_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,7 +19,7 @@ void main() async {
   );
 
   runApp(RepositoryProvider(
-      create: (_) => AuthenticationService(),
+      create: (_) => MecaService(),
       child: MultiBlocProvider(providers: [
         BlocProvider<ConnectivityBloc>(
           create: (BuildContext context) =>
@@ -35,7 +31,7 @@ void main() async {
                   ..add(CheckUserLoggedinEvent())),
         BlocProvider<AuthenticationBloc>(
             create: (BuildContext context) => AuthenticationBloc(
-                authenticationService: context.read<AuthenticationService>())
+                mecaService: context.read<MecaService>())
               ..add(const CheckUserLoggedIn()))
       ], child: const AppView())));
 }

@@ -50,9 +50,10 @@ class FilteredStoreBody extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 16, vertical: 8),
                         child: InkWell(
-                            onTap: () => Navigator.of(context)
-                                .pushNamed(StoreScreen.routeName),
-                            child: SuggestItem()),
+                            onTap: () => Navigator.of(context).pushNamed(
+                                StoreScreen.routeName,
+                                arguments: state.stores[index].id),
+                            child: const SuggestItem()),
                       )),
             );
           }

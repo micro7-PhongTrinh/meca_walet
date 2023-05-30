@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meca_wallet/features/explore_store/explore_store_screen.dart';
 import 'package:meca_wallet/features/explore_store/widgets/featured_item_skeleton.dart';
 
+import '../../../bloc/common_cubit/get_featured_stores_cubit.dart';
 import '../../../widgets/tab_title.dart';
 import '../../store/store_screen.dart';
-import '../bloc/get_featured_stores_cubit.dart';
 import 'featured_item.dart';
 
 class FeaturedStores extends StatelessWidget {
@@ -15,9 +14,9 @@ class FeaturedStores extends StatelessWidget {
   Widget build(BuildContext context) {
     var cubit = BlocProvider.of<GetFeaturedStoresCubit>(context);
     cubit.getFeaturedStores();
-    return Column(
+    return const Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: const [
+      children:  [
         TabTitle(title: 'Cửa hàng nổi bật', padding: 0),
         SizedBox(
           height: 10,
@@ -45,7 +44,8 @@ class FeaturedStoreItems extends StatelessWidget {
                     state.stores.length,
                     (index) => InkWell(
                           onTap: () => Navigator.of(context)
-                              .pushNamed(StoreScreen.routeName),
+                              .pushNamed(StoreScreen.routeName, arguments: state.stores[index].id
+                        ),
                           child: Container(
                               margin: const EdgeInsets.only(right: 15),
                               child: FeaturedItem(

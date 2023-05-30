@@ -14,7 +14,7 @@ class SearchingStoreScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<GetFilteredStoresCubit>(
       create: (_) => GetFilteredStoresCubit(),
-      child: const SearchingStoreBody(),
+      child: const SearchingStoreBody(),  
     );
   }
 }

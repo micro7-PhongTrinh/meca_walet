@@ -7,13 +7,17 @@ class AppRepresent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('heiehroiweuhf');
     return Container(
+        height: MediaQuery.of(context).size.height * 0.65,
         padding: const EdgeInsets.symmetric(vertical: 20),
         color: kPrimaryPurple,
         child: Column(children: [
-          Image.asset(
-            'assets/images/meca_logo.png',
-          ),
+          Expanded(
+              child: Image.asset(
+              fit: BoxFit.fill,
+              'assets/images/meca_logo.png',
+          )),
           const StoreSearchNavigator()
         ]));
   }
@@ -25,7 +29,8 @@ class StoreSearchNavigator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-        onTap: () => Navigator.of(context).pushNamed(ExploreStoreScreen.routeName),
+        onTap: () =>
+            Navigator.of(context).pushNamed(ExploreStoreScreen.routeName),
         child: Container(
             width: MediaQuery.of(context).size.width * 0.8,
             padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -33,9 +38,9 @@ class StoreSearchNavigator extends StatelessWidget {
             decoration: const BoxDecoration(
                 color: kGreyShade6,
                 borderRadius: BorderRadius.all(Radius.circular(45))),
-            child: Row(
+            child: const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
+              children: [
                 Text(
                   'Khám phá các cửa hàng trên Meca',
                   style: TextStyle(color: kTextColorAccent),

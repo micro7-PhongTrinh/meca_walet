@@ -1,3 +1,5 @@
+import '../data/user.dart';
+
 class AuthenticationException implements Exception {
   final String error;
 

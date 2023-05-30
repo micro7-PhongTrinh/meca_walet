@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:meca_wallet/bloc/common_cubit/get_featured_stores_cubit.dart';
 import 'package:meca_wallet/features/explore_store/bloc/get_featured_events_cubit.dart';
-import 'package:meca_wallet/features/explore_store/bloc/get_featured_stores_cubit.dart';
 import 'package:meca_wallet/features/explore_store/bloc/get_hot_coupons_cubit.dart';
 import 'package:meca_wallet/features/explore_store/explore_store_screen.dart';
-import 'package:meca_wallet/features/explore_store/widgets/explore_store_appbar.dart';
 import 'package:meca_wallet/features/explore_store/widgets/featured_events.dart';
 import 'package:meca_wallet/features/explore_store/widgets/featured_stores.dart';
 import 'package:meca_wallet/features/explore_store/widgets/hot_coupons.dart';
@@ -14,7 +13,6 @@ import 'package:mockito/mockito.dart';
 import 'package:mocktail_image_network/mocktail_image_network.dart';
 
 import '../../widget_test_extention.dart';
-import '../store/widgets/store_event_test.mocks.dart';
 import 'explore_store_screen_test.mocks.dart';
 
 @GenerateMocks(

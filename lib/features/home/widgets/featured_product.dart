@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:meca_service/meca_service.dart';
 import 'package:meca_wallet/features/home/bloc/get_featured_product_cubit.dart';
 import 'package:meca_wallet/features/store/store_screen.dart';
 import 'package:meca_wallet/widgets/featured_product_card.dart';
@@ -15,17 +16,22 @@ import '../../../widgets/tab_title.dart';
 
 // nay hien thi danh muc theo cac danh muc san pham cua cac cua hang
 class FeaturedProduct extends StatelessWidget {
-  const FeaturedProduct({
-    super.key,
-    required this.categories,
-  });
+  const FeaturedProduct({super.key});
 
-  final List<String> categories;
+  // import category from outside make testable
+  final List<String> categories = const [
+    'Quần áo',
+    'Coffee',
+    'Nhà hàng',
+    'Mua sắm',
+    'Ăn vặt',
+  ];
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<GetFeaturedProductCubit>(
-        create: (_) => GetFeaturedProductCubit(),
+        create: (_) => GetFeaturedProductCubit(
+            mecaService: RepositoryProvider.of<MecaService>(context)),
         child: Column(
           children: [
             const TabTitle(title: 'Danh mục nổi bật'),
@@ -136,9 +142,7 @@ class _ProductScrollList extends StatelessWidget {
                                                 child: CachedNetworkImage(
                                                   fit: BoxFit.fill,
                                                   imageUrl: state
-                                                      .products[index]
-                                                      .product
-                                                      .imgUrl,
+                                                      .products[index].imgUrl,
                                                   errorWidget: (context, url,
                                                           error) =>
                                                       Container(
@@ -167,7 +171,6 @@ class _ProductScrollList extends StatelessWidget {
                                                                   state
                                                                       .products[
                                                                           index]
-                                                                      .product
                                                                       .name,
                                                                   style: const TextStyle(
                                                                       fontSize:
@@ -175,12 +178,8 @@ class _ProductScrollList extends StatelessWidget {
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .w700)),
-                                                              RatingStar(
-                                                                  ratePoint: state
-                                                                      .products[
-                                                                          index]
-                                                                      .product
-                                                                      .ratePoint),
+                                                              const RatingStar(
+                                                                  ratePoint: 4),
                                                             ],
                                                           )),
                                                       const SizedBox(height: 5),
@@ -195,7 +194,8 @@ class _ProductScrollList extends StatelessWidget {
                                                                   logoUrl: state
                                                                       .products[
                                                                           index]
-                                                                      .storeImgUrl),
+                                                                      .store
+                                                                      .logoUrl),
                                                               const SizedBox(
                                                                   width: 10),
                                                               Column(
@@ -210,7 +210,8 @@ class _ProductScrollList extends StatelessWidget {
                                                                     state
                                                                         .products[
                                                                             index]
-                                                                        .storeName,
+                                                                        .store
+                                                                        .name,
                                                                     style: const TextStyle(
                                                                         fontSize:
                                                                             16,
@@ -220,17 +221,20 @@ class _ProductScrollList extends StatelessWidget {
                                                                   const SizedBox(
                                                                       height:
                                                                           5),
-                                                                  Text(
+                                                                  const Text(
                                                                       '45 thành viên'),
                                                                 ],
                                                               ),
                                                               const Spacer(),
                                                               TextButton(
-                                                                  onPressed: () => Navigator.of(
-                                                                          context)
-                                                                      .pushNamed(
-                                                                          StoreScreen
-                                                                              .routeName),
+                                                                  onPressed: () => Navigator.of(context).pushNamed(
+                                                                      StoreScreen
+                                                                          .routeName,
+                                                                      arguments: state
+                                                                          .products[
+                                                                              index]
+                                                                          .store
+                                                                          .id),
                                                                   child: const Text(
                                                                       'Truy cập'))
                                                             ],
@@ -245,7 +249,7 @@ class _ProductScrollList extends StatelessWidget {
                                   ),
                               child: FeaturedProductCard(
                                   key: Key('tategory_product_tab_$index'),
-                                  featuredProduct: state.products[index])),
+                                  product: state.products[index])),
                         )));
           } else if (state is GetFeaturedProductFail) {
             return const FeaturedProductError();
