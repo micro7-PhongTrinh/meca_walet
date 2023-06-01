@@ -1,0 +1,105 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "meca_wallet",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "meca_wallet (profile mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "meca_wallet (release mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "application_state",
+            "cwd": "packages\\application_state",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "application_state (profile mode)",
+            "cwd": "packages\\application_state",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "application_state (release mode)",
+            "cwd": "packages\\application_state",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "authentication",
+            "cwd": "packages\\authentication",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "authentication (profile mode)",
+            "cwd": "packages\\authentication",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "authentication (release mode)",
+            "cwd": "packages\\authentication",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "connectivity",
+            "cwd": "packages\\connectivity",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "connectivity (profile mode)",
+            "cwd": "packages\\connectivity",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "connectivity (release mode)",
+            "cwd": "packages\\connectivity",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "onepos_service",
+            "cwd": "packages\\onepos_service",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "onepos_service (profile mode)",
+            "cwd": "packages\\onepos_service",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "onepos_service (release mode)",
+            "cwd": "packages\\onepos_service",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}

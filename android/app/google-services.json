@@ -1,0 +1,130 @@
+{
+  "project_info": {
+    "project_number": "514069798802",
+    "project_id": "micro7-meca-wallet",
+    "storage_bucket": "micro7-meca-wallet.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:514069798802:android:bca553a9b28da9e04a6b4b",
+        "android_client_info": {
+          "package_name": "com.micro7.meca_wallet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "514069798802-00ufdm53ol9r568heapjpnqqaij2ehvd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.micro7.meca_wallet",
+            "certificate_hash": "0ce915781f56c1289155cd6aabbdbd341f0df101"
+          }
+        },
+        {
+          "client_id": "514069798802-6do4j7s6eutjer8js5apmhjpqpdqf88f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.micro7.meca_wallet",
+            "certificate_hash": "72461d9dd945c3ab0905ad72a9b6c47f53ce17fd"
+          }
+        },
+        {
+          "client_id": "514069798802-vvmopl6gjiknagrmjhr6knmuf4eq7nn2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.micro7.meca_wallet",
+            "certificate_hash": "f9c688fafb658700d52ae826a6eda18ec9c2e820"
+          }
+        },
+        {
+          "client_id": "514069798802-a66g29ep98mp2n9dvfjljebs894p46ql.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjJnefvIQ9klI6P3AApSUE95fb7BpRNcQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "514069798802-75bj7le4m9rutbd770ltlmvsq86hi5ib.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "514069798802-ltq34hhf93ptuuhdiumhtudepje7bc58.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.micro7.mecaWallet"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:514069798802:android:19b7f932999c25d64a6b4b",
+        "android_client_info": {
+          "package_name": "micro7.meca_wallet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "514069798802-l91htplf69ek49c8vs5ukdtv9qoe4ma8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "micro7.meca_wallet",
+            "certificate_hash": "0ce915781f56c1289155cd6aabbdbd341f0df101"
+          }
+        },
+        {
+          "client_id": "514069798802-psg1tsht0b91a0egrtpuc1k26acb0jbq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "micro7.meca_wallet",
+            "certificate_hash": "72461d9dd945c3ab0905ad72a9b6c47f53ce17fd"
+          }
+        },
+        {
+          "client_id": "514069798802-t2id3f35dfftuj5bpqpajb54i0q2qmo5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "micro7.meca_wallet",
+            "certificate_hash": "f9c688fafb658700d52ae826a6eda18ec9c2e820"
+          }
+        },
+        {
+          "client_id": "514069798802-a66g29ep98mp2n9dvfjljebs894p46ql.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjJnefvIQ9klI6P3AApSUE95fb7BpRNcQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "514069798802-75bj7le4m9rutbd770ltlmvsq86hi5ib.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "514069798802-ltq34hhf93ptuuhdiumhtudepje7bc58.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.micro7.mecaWallet"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

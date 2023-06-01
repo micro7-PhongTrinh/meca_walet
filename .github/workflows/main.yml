@@ -1,0 +1,27 @@
+name: Tests
+on:
+  push:
+    branches:
+      - '**'
+      - '!dev'
+      - '!main'
+  pull_request:
+    branches:
+      - '**'
+      - '!dev'
+      - '!main'
+
+# Declare default permissions as read only.
+permissions: read-all
+
+jobs:
+  unit-test:
+    name: Unit tests
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '3.7.1'
+    - run: flutter pub get
+    - run: flutter test
