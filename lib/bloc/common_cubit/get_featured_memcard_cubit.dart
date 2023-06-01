@@ -1,9 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meca_service/data/member_card.dart';
+import 'package:meca_service/data/detail_member_card.dart';
 import 'package:meca_service/data/featured_member_card.dart';
 import 'package:meca_service/meca_service.dart';
-import 'package:meca_wallet/features/store/bloc/get_memcard_cubit.dart';
 
 part 'get_featured_memcard_state.dart';
 
@@ -21,10 +20,8 @@ class GetFeaturedMemcardCubit extends Cubit<GetFeaturedMemcardState> {
   Future<void> getFeaturedMemberCards() async {
     emit(GetFeaturedMemcardLoading());
 
-    await Future.delayed(const Duration(seconds: 1));
-
     FeaturedMemberCard featuredCards =
-        await _mecaService.getFeaturedMemberCards();
+        await _mecaService.getFeaturedDetailMemberCards();
     try {
       if (featuredCards.cards.isEmpty) {
         emit(EmptyMemcard());
@@ -39,12 +36,9 @@ class GetFeaturedMemcardCubit extends Cubit<GetFeaturedMemcardState> {
 
   Future<void> getAllMembershipCards() async {
     emit(GetFeaturedMemcardLoading());
+    List<DetailMemberCard> cards =
+        await _mecaService.getAllDetailMemberCards();
 
-    await Future.delayed(const Duration(seconds: 1));
-
-    FeaturedMemberCard featuredCards =
-        await _mecaService.getFeaturedMemberCards();
-
-    emit(GetFeaturedMemcardSuccess(featuredCards.cards, featuredCards.total));
+    emit(GetMemcardSuccess(cards));
   }
 }

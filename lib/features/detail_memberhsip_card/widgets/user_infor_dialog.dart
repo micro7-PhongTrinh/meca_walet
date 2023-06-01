@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
+import 'package:meca_service/data/detail_member_card.dart';
+import 'package:meca_service/meca_service.dart';
+import 'package:meca_wallet/bloc/authentication/authentication/authentication_bloc.dart';
 import 'package:meca_wallet/constants/colors.dart';
 
-class UserInforDialog extends StatelessWidget {
-  const UserInforDialog({super.key});
+class UserCardInforDialog extends StatelessWidget {
+  const UserCardInforDialog({super.key, required this.detailCard});
+
+  final DetailMemberCard detailCard;
 
   @override
   Widget build(BuildContext context) {
+    final User user = BlocProvider.of<AuthenticationBloc>(context).user!;
     return Dialog(
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(10))),
@@ -31,8 +39,8 @@ class UserInforDialog extends StatelessWidget {
                             color: kTextColorAccent)),
                     const SizedBox(height: 20),
                     Row(
-                      children: const [
-                        Expanded(
+                      children: [
+                        const Expanded(
                             flex: 1,
                             child: Text('Thành viên:',
                                 style: TextStyle(
@@ -41,15 +49,15 @@ class UserInforDialog extends StatelessWidget {
                                     color: kTextColor))),
                         Expanded(
                             flex: 1,
-                            child: Text('Trinhh Quoc Phong',
-                                style: TextStyle(
+                            child: Text(user.userName,
+                                style: const TextStyle(
                                     fontSize: 16, color: kTextColorAccent)))
                       ],
                     ),
                     const SizedBox(height: 10),
                     Row(
-                      children: const [
-                        Expanded(
+                      children: [
+                        const Expanded(
                             flex: 1,
                             child: Text('Ngày mở:',
                                 style: TextStyle(
@@ -58,8 +66,10 @@ class UserInforDialog extends StatelessWidget {
                                     color: kTextColor))),
                         Expanded(
                             flex: 1,
-                            child: Text('14/02/2023',
-                                style: TextStyle(
+                            child: Text(
+                                DateFormat('dd-MM-yyyy')
+                                    .format(detailCard.openDate),
+                                style: const TextStyle(
                                     fontSize: 16, color: kTextColorAccent)))
                       ],
                     )
@@ -73,11 +83,11 @@ class UserInforDialog extends StatelessWidget {
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                             color: kTextColorAccent)),
-                    const SizedBox(height: 20),
+                    SizedBox(height: 20),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Expanded(
+                      children: [
+                        const Expanded(
                           flex: 1,
                           child: Text('Email:',
                               style: TextStyle(
@@ -87,8 +97,8 @@ class UserInforDialog extends StatelessWidget {
                         ),
                         Expanded(
                             flex: 1,
-                            child: Text('trinhquocphong.vnag@gmail.com',
-                                style: TextStyle(
+                            child: Text(user.email,
+                                style: const TextStyle(
                                     fontSize: 16, color: kTextColorAccent)))
                       ],
                     )

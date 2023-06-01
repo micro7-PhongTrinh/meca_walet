@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:meca_service/meca_service.dart';
+import 'package:meca_wallet/bloc/common_cubit/get_stores_cubit.dart';
 import 'package:meca_wallet/constants/colors.dart';
 
-import 'bloc/get_filtered_stores_cubit.dart';
 import 'widgets/searching_stores_result.dart';
 import 'widgets/store_suggest.dart';
 
@@ -12,9 +13,10 @@ class SearchingStoreScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<GetFilteredStoresCubit>(
-      create: (_) => GetFilteredStoresCubit(),
-      child: const SearchingStoreBody(),  
+    return BlocProvider<GetStoresCubit>(
+      create: (_) => GetStoresCubit(
+          mecaService: RepositoryProvider.of<MecaService>(context)),
+      child: const SearchingStoreBody(),
     );
   }
 }
@@ -33,7 +35,6 @@ class _SearchingStoreBodyState extends State<SearchingStoreBody> {
   @override
   void initState() {
     textController.addListener(() async {
-      await Future.delayed(const Duration(seconds: 1));
       if (oldValue == textController.text) {
         return;
       }

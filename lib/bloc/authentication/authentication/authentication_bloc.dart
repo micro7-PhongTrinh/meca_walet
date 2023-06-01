@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meca_service/meca_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 part 'authentication_event.dart';
 part 'authentication_state.dart';
@@ -14,6 +15,7 @@ class AuthenticationBloc
     on<UserChanged>(_onUserChanged);
     on<LogoutRequested>(_onLogoutRequested);
     on<CheckUserLoggedIn>(_onCheckUserLoggedIn);
+    on<FirstUserLoggedin>(_setFirstUserLoggin);
     _mecaService.user.listen((user) {
       add(UserChanged(user));
     });
@@ -21,12 +23,16 @@ class AuthenticationBloc
 
   final MecaService _mecaService;
 
+  User? user;
+
   void _onUserChanged(UserChanged event, Emitter<AuthenticationState> emit) {
     emit(
       event.user != null
           ? AuthenticatedState(event.user!)
           : UnauthenticatedState(),
     );
+
+    user = event.user;
   }
 
   void _onLogoutRequested(
@@ -36,6 +42,11 @@ class AuthenticationBloc
 
   Future<void> _onCheckUserLoggedIn(
       CheckUserLoggedIn evnt, Emitter<AuthenticationState> emit) async {
+    bool isFirstLogin = await _isFirstUserLoggin();
+    if (isFirstLogin == true) {
+      emit(UserFirstLoginState());
+      return;
+    }
     try {
       await _mecaService.checkSignedinUser();
     } catch (e) {
@@ -43,4 +54,21 @@ class AuthenticationBloc
       emit(UnauthenticatedState());
     }
   }
+
+  Future<bool> _isFirstUserLoggin() async {
+    SharedPreferences sharedPrefs = await SharedPreferences.getInstance();
+    bool? check = sharedPrefs.getBool(keyIsfirstLogin);
+    if (check == null || check == false) {
+      return true;
+    }
+    return false;
+  }
+
+  Future<void> _setFirstUserLoggin(
+      FirstUserLoggedin evnt, Emitter<AuthenticationState> emit) async {
+    SharedPreferences sharedPrefs = await SharedPreferences.getInstance();
+    await sharedPrefs.setBool(keyIsfirstLogin, true);
+  }
 }
+
+const String keyIsfirstLogin = "isFirstLogin";

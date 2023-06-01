@@ -12,12 +12,14 @@ class GetCurrentActivityInitial extends GetCurrentActivityState {}
 class GetCurrentActivityLoading extends GetCurrentActivityState {}
 
 class GetCurrentActivitySuccess extends GetCurrentActivityState {
-  final List<CardActivityModel> activities;
+  final List<Activity> activities;
 
   const GetCurrentActivitySuccess(this.activities);
 
   @override
   List<Object?> get props => [activities];
 }
+
+class EmptyActivity extends GetCurrentActivityState {}
 
 class GetCurrentActivityFail extends GetCurrentActivityState {}

@@ -25,10 +25,6 @@ void main() async {
           create: (BuildContext context) =>
               ConnectivityBloc()..add(ConnectedConnectivityEvent()),
         ),
-        BlocProvider<ApplicationSettingBloc>(
-            create: (BuildContext context) =>
-                ApplicationSettingBloc(applicationState)
-                  ..add(CheckUserLoggedinEvent())),
         BlocProvider<AuthenticationBloc>(
             create: (BuildContext context) => AuthenticationBloc(
                 mecaService: context.read<MecaService>())

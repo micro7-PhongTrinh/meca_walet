@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meca_service/meca_service.dart';
-import 'package:meca_wallet/bloc/common_cubit/get_featured_stores_cubit.dart';
+import 'package:meca_wallet/bloc/common_cubit/get_stores_cubit.dart';
 import 'package:meca_wallet/constants/colors.dart';
 import 'package:meca_wallet/features/store/store_screen.dart';
 
@@ -20,8 +20,8 @@ class RecommendedStore extends StatelessWidget {
         const SizedBox(
           height: 10,
         ),
-        BlocProvider<GetFeaturedStoresCubit>(
-            create: (_) => GetFeaturedStoresCubit(
+        BlocProvider<GetStoresCubit>(
+            create: (_) => GetStoresCubit(
                 mecaService: RepositoryProvider.of<MecaService>(context))
               ..getFeaturedStores(),
             child: const RecommendStoreBody()),
@@ -40,18 +40,18 @@ class RecommendStoreBody extends StatelessWidget {
     return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: BlocBuilder(
-            bloc: BlocProvider.of<GetFeaturedStoresCubit>(context),
+            bloc: BlocProvider.of<GetStoresCubit>(context),
             builder: (context, state) {
-              if (state is GetFeaturedStoresSuccess) {
+              if (state is GetStoresSuccess) {
                 return SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
                       children: List.generate(
                     state.stores.length,
                     (index) => InkWell(
-                        onTap: () => Navigator.of(context)
-                            .pushNamed(StoreScreen.routeName,arguments: state.stores[index].id
-                        ),
+                        onTap: () => Navigator.of(context).pushNamed(
+                            StoreScreen.routeName,
+                            arguments: state.stores[index].id),
                         child: StoreCard(
                           store: state.stores[index],
                         )),

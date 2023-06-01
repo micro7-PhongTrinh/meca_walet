@@ -18,10 +18,10 @@ class ExploreStoreAppbar extends StatelessWidget {
       flexibleSpace: FlexibleSpaceBar(
           background: Container(
         padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: Column(
+        child: const Column(
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
+          children: [
             Text(
               'Khám phá',
               style: TextStyle(
@@ -68,9 +68,9 @@ class SearchNavigateBar extends StatelessWidget {
         borderRadius: BorderRadius.circular(8.0),
         color: Colors.white,
       ),
-      child: Row(
+      child: const Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: const [
+        children: [
           Text('Cửa hàng trên Meca',
               style: TextStyle(
                 color: kTextColorAccent,

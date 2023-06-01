@@ -17,7 +17,6 @@ class GetFeaturedProductCubit extends Cubit<GetFeaturedProductState> {
     emit(GetFeaturedProductLoading());
 
     //process get product list from StorageService service
-    await Future.delayed(const Duration(seconds: 1));
     List<Product> products = await _mecaService.getFeaturedProducts();
 
     emit(GetFeaturedProductSuccess(products));

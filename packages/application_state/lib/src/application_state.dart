@@ -26,17 +26,17 @@ class ApplicationState {
     _sharedPrefs = _sharedPrefs ?? await SharedPreferences.getInstance();
   }
 
-  Future<bool> setIsLoggedin(bool value) {
-    return _sharedPrefs!.setBool(keyIsLoggedin, value);
+  Future<bool> setIsFirstLogin(bool value) {
+    return _sharedPrefs!.setBool(keyIsfirstLogin, value);
   }
 
-  Future<bool> getIsLoggedin() async {
+  Future<bool> getIsFirstLogin() async {
     try {
-      return _sharedPrefs!.getBool(keyIsLoggedin) ?? false;
+      return _sharedPrefs!.getBool(keyIsfirstLogin) ?? false;
     } catch (e) {
       throw StorageException(e.toString());
     }
   }
 }
 
-const String keyIsLoggedin = "Key_isLoggedin";
+const String keyIsfirstLogin = "isFirstLogin";

@@ -20,11 +20,10 @@ class FeaturedProduct extends StatelessWidget {
 
   // import category from outside make testable
   final List<String> categories = const [
-    'Quần áo',
-    'Coffee',
-    'Nhà hàng',
-    'Mua sắm',
-    'Ăn vặt',
+    'Gợi ý',
+    'Yêu thích',
+    'Nổi bật',
+    'Member khuyên dùng'
   ];
 
   @override
@@ -178,8 +177,7 @@ class _ProductScrollList extends StatelessWidget {
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .w700)),
-                                                              const RatingStar(
-                                                                  ratePoint: 4),
+                                                              const RatingStar(),
                                                             ],
                                                           )),
                                                       const SizedBox(height: 5),
@@ -221,8 +219,8 @@ class _ProductScrollList extends StatelessWidget {
                                                                   const SizedBox(
                                                                       height:
                                                                           5),
-                                                                  const Text(
-                                                                      '45 thành viên'),
+                                                                  Text(
+                                                                      '${state.products[index].store.memberNumber} thành viên'),
                                                                 ],
                                                               ),
                                                               const Spacer(),

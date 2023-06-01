@@ -25,9 +25,9 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeGetFeaturedStoresState_0 extends _i1.SmartFake
-    implements _i2.GetFeaturedStoresState {
-  _FakeGetFeaturedStoresState_0(
+class _FakeGetStoresState_0 extends _i1.SmartFake
+    implements _i2.GetStoresState {
+  _FakeGetStoresState_0(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -58,28 +58,27 @@ class _FakeGetHotCoupounsState_2 extends _i1.SmartFake
         );
 }
 
-/// A class which mocks [GetFeaturedStoresCubit].
+/// A class which mocks [GetStoresCubit].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockGetFeaturedStoresCubit extends _i1.Mock
-    implements _i2.GetFeaturedStoresCubit {
-  MockGetFeaturedStoresCubit() {
+class MockGetStoresCubit extends _i1.Mock implements _i2.GetStoresCubit {
+  MockGetStoresCubit() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i2.GetFeaturedStoresState get state => (super.noSuchMethod(
+  _i2.GetStoresState get state => (super.noSuchMethod(
         Invocation.getter(#state),
-        returnValue: _FakeGetFeaturedStoresState_0(
+        returnValue: _FakeGetStoresState_0(
           this,
           Invocation.getter(#state),
         ),
-      ) as _i2.GetFeaturedStoresState);
+      ) as _i2.GetStoresState);
   @override
-  _i5.Stream<_i2.GetFeaturedStoresState> get stream => (super.noSuchMethod(
+  _i5.Stream<_i2.GetStoresState> get stream => (super.noSuchMethod(
         Invocation.getter(#stream),
-        returnValue: _i5.Stream<_i2.GetFeaturedStoresState>.empty(),
-      ) as _i5.Stream<_i2.GetFeaturedStoresState>);
+        returnValue: _i5.Stream<_i2.GetStoresState>.empty(),
+      ) as _i5.Stream<_i2.GetStoresState>);
   @override
   bool get isClosed => (super.noSuchMethod(
         Invocation.getter(#isClosed),
@@ -95,7 +94,7 @@ class MockGetFeaturedStoresCubit extends _i1.Mock
         returnValueForMissingStub: _i5.Future<void>.value(),
       ) as _i5.Future<void>);
   @override
-  void emit(_i2.GetFeaturedStoresState? state) => super.noSuchMethod(
+  void emit(_i2.GetStoresState? state) => super.noSuchMethod(
         Invocation.method(
           #emit,
           [state],
@@ -103,8 +102,7 @@ class MockGetFeaturedStoresCubit extends _i1.Mock
         returnValueForMissingStub: null,
       );
   @override
-  void onChange(_i6.Change<_i2.GetFeaturedStoresState>? change) =>
-      super.noSuchMethod(
+  void onChange(_i6.Change<_i2.GetStoresState>? change) => super.noSuchMethod(
         Invocation.method(
           #onChange,
           [change],

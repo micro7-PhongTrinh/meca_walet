@@ -21,3 +21,7 @@ class UnauthenticatedState extends AuthenticationState {
 class AuthenticationInitailState extends AuthenticationState {
   AuthenticationInitailState();
 }
+
+class UserFirstLoginState extends AuthenticationState {
+  UserFirstLoginState();
+}

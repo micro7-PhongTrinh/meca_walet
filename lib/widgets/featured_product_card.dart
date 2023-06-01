@@ -57,7 +57,7 @@ class FeaturedProductCard extends StatelessWidget {
                   style: const TextStyle(color: kTextColorAccent))),
           const Expanded(
             flex: 1,
-            child: RatingStar(ratePoint: 4),
+            child: RatingStar(),
           ),
         ],
       ),

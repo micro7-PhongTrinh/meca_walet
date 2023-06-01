@@ -12,7 +12,7 @@ import '../../../widget_test_extention.dart';
 import '../explore_store_screen_test.mocks.dart';
 
 void main() {
-  MockGetFeaturedStoresCubit mockCubit = MockGetFeaturedStoresCubit();
+  MockGetStoresCubit mockCubit = MockGetStoresCubit();
 
   List<StoreModel> mockData = List.generate(
       4,
@@ -28,10 +28,9 @@ void main() {
           45));
 
   setUp(() async {
-    when(mockCubit.state)
-        .thenAnswer((realInvocation) => GetFeaturedStoresInitial());
-    when(mockCubit.stream).thenAnswer((realInvocation) =>
-        Stream<GetFeaturedStoresState>.value(GetFeaturedStoresInitial()));
+    when(mockCubit.state).thenAnswer((realInvocation) => GetStoresInitial());
+    when(mockCubit.stream).thenAnswer(
+        (realInvocation) => Stream<GetStoresState>.value(GetStoresInitial()));
   });
 
   tearDown(() async {
@@ -40,8 +39,7 @@ void main() {
   testWidgets('Verify featured stores UI', (widgetTester) async {
     Widget widget = const FeaturedStores();
 
-    await widgetTester.blocWrapAndPump<GetFeaturedStoresCubit>(
-        mockCubit, widget);
+    await widgetTester.blocWrapAndPump<GetStoresCubit>(mockCubit, widget);
 
     expect(find.text('Cửa hàng nổi bật'), findsOneWidget);
     expect(find.byType(FeaturedStoreItems), findsOneWidget);
@@ -50,64 +48,56 @@ void main() {
       (widgetTester) async {
     Widget widget = const FeaturedStores();
 
-    await widgetTester.blocWrapAndPump<GetFeaturedStoresCubit>(
-        mockCubit, widget);
+    await widgetTester.blocWrapAndPump<GetStoresCubit>(mockCubit, widget);
 
     expect(
-        widgetTester.widget(find.byType(
-            BlocBuilder<GetFeaturedStoresCubit, GetFeaturedStoresState>)),
-        isA<BlocBuilder<GetFeaturedStoresCubit, GetFeaturedStoresState>>()
+        widgetTester
+            .widget(find.byType(BlocBuilder<GetStoresCubit, GetStoresState>)),
+        isA<BlocBuilder<GetStoresCubit, GetStoresState>>()
             .having((t) => t.bloc, 'is mockCubit?', mockCubit));
   });
   testWidgets('When state is initial, expect list skeleton appear',
       (widgetTester) async {
     Widget widget = const FeaturedStores();
 
-    await widgetTester.blocWrapAndPump<GetFeaturedStoresCubit>(
-        mockCubit, widget);
+    await widgetTester.blocWrapAndPump<GetStoresCubit>(mockCubit, widget);
 
     expect(find.byType(FeaturedItemSkeleton), findsWidgets);
   });
   testWidgets('When state is success, expect list featured store appear',
       (widgetTester) async {
     when(mockCubit.state)
-        .thenAnswer((realInvocation) => GetFeaturedStoresSuccess(mockData));
+        .thenAnswer((realInvocation) => GetStoresSuccess(mockData));
     when(mockCubit.stream).thenAnswer((realInvocation) =>
-        Stream<GetFeaturedStoresState>.value(
-            GetFeaturedStoresSuccess(mockData)));
+        Stream<GetStoresState>.value(GetStoresSuccess(mockData)));
 
     Widget widget = const FeaturedStores();
 
-    await widgetTester.blocWrapAndPump<GetFeaturedStoresCubit>(
-        mockCubit, widget);
+    await widgetTester.blocWrapAndPump<GetStoresCubit>(mockCubit, widget);
 
     expect(find.byType(FeaturedItem), findsNWidgets(mockData.length));
   });
   testWidgets('Whenn state is loading, expect list skeleton appear',
       (widgetTester) async {
-    when(mockCubit.state)
-        .thenAnswer((realInvocation) => GetFeaturedStoresLoading());
-    when(mockCubit.stream).thenAnswer((realInvocation) =>
-        Stream<GetFeaturedStoresState>.value(GetFeaturedStoresLoading()));
+    when(mockCubit.state).thenAnswer((realInvocation) => GetStoresLoading());
+    when(mockCubit.stream).thenAnswer(
+        (realInvocation) => Stream<GetStoresState>.value(GetStoresLoading()));
 
     Widget widget = const FeaturedStores();
 
-    await widgetTester.blocWrapAndPump<GetFeaturedStoresCubit>(
-        mockCubit, widget);
+    await widgetTester.blocWrapAndPump<GetStoresCubit>(mockCubit, widget);
 
     expect(find.byType(FeaturedItemSkeleton), findsWidgets);
   });
   testWidgets('When state is load fail, expect list skeleton appear',
       (widgetTester) async {
-    when(mockCubit.state)
-        .thenAnswer((realInvocation) => GetFeaturedStoresFail());
-    when(mockCubit.stream).thenAnswer((realInvocation) =>
-        Stream<GetFeaturedStoresState>.value(GetFeaturedStoresFail()));
+    when(mockCubit.state).thenAnswer((realInvocation) => GetStoresFail());
+    when(mockCubit.stream).thenAnswer(
+        (realInvocation) => Stream<GetStoresState>.value(GetStoresFail()));
 
     Widget widget = const FeaturedStores();
 
-    await widgetTester.blocWrapAndPump<GetFeaturedStoresCubit>(
-        mockCubit, widget);
+    await widgetTester.blocWrapAndPump<GetStoresCubit>(mockCubit, widget);
 
     expect(find.byType(FeaturedItemSkeleton), findsWidgets);
   });

@@ -19,6 +19,7 @@ class FeaturedItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 220,
       width: 200,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -33,7 +34,9 @@ class FeaturedItem extends StatelessWidget {
                     borderRadius: BorderRadius.circular(2),
                   ))),
           const SizedBox(height: 10),
-          ItemTitle(itemType: itemtype, content: content, storeName: storeName)
+          Expanded(
+              child: ItemTitle(
+                  itemType: itemtype, content: content, storeName: storeName))
         ],
       ),
     );
@@ -66,8 +69,7 @@ class ProductTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      content,
+    return Text(content,
         maxLines: 2,
         overflow: TextOverflow.ellipsis,
         style: TextStyle(fontSize: 18, color: kTextColorAccent));

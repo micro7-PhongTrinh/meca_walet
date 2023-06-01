@@ -13,7 +13,7 @@ class ApplicationSettingBloc
   ApplicationSettingBloc(ApplicationState applicationState)
       : _applicationState = applicationState,
         super(ApplicationInitialState()) {
-    on<CheckUserLoggedinEvent>((ApplicationSettingEvent event,
+    on<CheckUserFirstLoginEvent>((ApplicationSettingEvent event,
         Emitter<ApplicationSettingState> emit) async {
       await _checkUserLoggedin(emit);
     });
@@ -27,9 +27,9 @@ class ApplicationSettingBloc
 
   Future<void> _checkUserLoggedin(Emitter<ApplicationSettingState> emit) async {
     try {
-      await _applicationState.getIsLoggedin().then((bool value) {
+      await _applicationState.getIsFirstLogin().then((bool value) {
         if (value == true) {
-          emit(UserLoggedinState());
+          emit(UserFirstLoginState());
         }
       });
     } on StorageException {
@@ -39,7 +39,7 @@ class ApplicationSettingBloc
 
   Future<void> _saveUserLoggedin(Emitter<ApplicationSettingState> emit) async {
     try {
-      await _applicationState.setIsLoggedin(true).then((value) {
+      await _applicationState.setIsFirstLogin(true).then((value) {
         if (value == true) { 
           emit(SaveLoggedinSuccessState());
         }

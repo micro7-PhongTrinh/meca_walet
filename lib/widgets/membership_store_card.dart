@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:meca_service/data/member_card.dart';
+import 'package:meca_service/data/detail_member_card.dart';
 import 'package:meca_wallet/constants/colors.dart';
 
 import 'card_chip.dart';
 import 'card_logo.dart';
 
 class MembershipStoreCard extends StatelessWidget {
-  const MembershipStoreCard({super.key, required this.card});
+  const MembershipStoreCard({super.key, required this.detailCard});
 
-  final MemberCard card;
+  final DetailMemberCard detailCard;
 
   static const Widget dotPadding = SizedBox(width: 24);
   static const Widget dot = Padding(
@@ -25,7 +25,7 @@ class MembershipStoreCard extends StatelessWidget {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15.0),
           border: Border.all(color: Colors.white),
-          color: cardColors[card.id % cardColors.length]),
+          color: cardColors[detailCard.id % cardColors.length]),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
@@ -37,7 +37,7 @@ class MembershipStoreCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const CardChip(),
-                  CardLogo(card.imgUrl),
+                  CardLogo(detailCard.card.imgUrl),
                 ]),
             const SizedBox(height: 40),
             Wrap(
@@ -55,7 +55,7 @@ class MembershipStoreCard extends StatelessWidget {
             const SizedBox(height: 40),
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
               Text(
-                card.name,
+                detailCard.card.name,
                 style: const TextStyle(color: Colors.white, fontSize: 18.0),
               ),
               Row(
@@ -69,7 +69,7 @@ class MembershipStoreCard extends StatelessWidget {
                   ),
                   const SizedBox(width: 5.0),
                   Text(
-                    '${card.openDate.day.toString()}/${card.openDate.month.toString()}',
+                    '${detailCard.openDate.day.toString()}/${detailCard.openDate.month.toString()}',
                     style: const TextStyle(color: Colors.white),
                     textScaleFactor: 1.4,
                   )

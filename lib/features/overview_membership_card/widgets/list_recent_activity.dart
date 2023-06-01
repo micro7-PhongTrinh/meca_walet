@@ -1,11 +1,12 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meca_wallet/model/card_activity.dart';
+import 'package:meca_service/data/activity.dart';
 import 'package:meca_wallet/widgets/error/recent_activity_error.dart';
 
+import '../../../bloc/common_cubit/get_current_activity_cubit.dart';
 import '../../../widgets/skeleton/recent_activity_skeleton.dart';
 import '../../../widgets/tab_title.dart';
-import '../bloc/get_current_activity_cubit.dart';
 
 class ListRecentActivity extends StatelessWidget {
   const ListRecentActivity({super.key});
@@ -14,10 +15,10 @@ class ListRecentActivity extends StatelessWidget {
   Widget build(BuildContext context) {
     GetCurrentActivityCubit cubit =
         BlocProvider.of<GetCurrentActivityCubit>(context);
-    cubit.getCurrentActivities();
-    return Column(
+    cubit.getLatelyActivities();
+    return const Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: const [
+      children: [
         TabTitle(
           title: 'Hoạt động gần đây',
         ),
@@ -59,7 +60,7 @@ class ListActivityTag extends StatelessWidget {
 }
 
 class RecentActivity extends StatelessWidget {
-  final CardActivityModel activity;
+  final Activity activity;
   const RecentActivity({
     super.key,
     required this.activity,
@@ -78,8 +79,10 @@ class RecentActivity extends StatelessWidget {
               margin: const EdgeInsets.all(5),
               child: ClipOval(
                   child: SizedBox.fromSize(
-                      size: const Size.fromRadius(45),
-                      child: Image.network(activity.urlImage))),
+                      size: const Size.fromRadius(20),
+                      child: Image(
+                          image:
+                              CachedNetworkImageProvider(activity.logoUrl)))),
             ),
           ),
           const SizedBox(width: 15),
@@ -89,7 +92,7 @@ class RecentActivity extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(activity.name,
+                  Text(activity.storeName,
                       style: const TextStyle(
                           fontSize: 18, fontWeight: FontWeight.w700)),
                   Text(activity.content)
@@ -98,7 +101,7 @@ class RecentActivity extends StatelessWidget {
           const SizedBox(width: 10),
           Expanded(
               flex: 1,
-              child: Text('+${activity.upPoint}',
+              child: Text('+${activity.point}',
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                       fontSize: 20, fontWeight: FontWeight.w700)))

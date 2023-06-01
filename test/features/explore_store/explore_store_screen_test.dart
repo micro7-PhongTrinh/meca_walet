@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:meca_wallet/bloc/common_cubit/get_featured_stores_cubit.dart';
+import 'package:meca_wallet/bloc/common_cubit/get_stores_cubit.dart';
 import 'package:meca_wallet/features/explore_store/bloc/get_featured_events_cubit.dart';
 import 'package:meca_wallet/features/explore_store/bloc/get_hot_coupons_cubit.dart';
 import 'package:meca_wallet/features/explore_store/explore_store_screen.dart';
@@ -16,12 +16,11 @@ import '../../widget_test_extention.dart';
 import 'explore_store_screen_test.mocks.dart';
 
 @GenerateMocks(
-    <Type>[GetFeaturedStoresCubit, GetFeaturedEventsCubit, GetHotCoupounsCubit])
+    <Type>[GetStoresCubit, GetFeaturedEventsCubit, GetHotCoupounsCubit])
 void main() {
   MockGetFeaturedEventsCubit mockGetFeaturedEventsCubit =
       MockGetFeaturedEventsCubit();
-  MockGetFeaturedStoresCubit mockGetFeaturedStoresCubit =
-      MockGetFeaturedStoresCubit();
+  MockGetStoresCubit mockGetStoresCubit = MockGetStoresCubit();
   MockGetHotCoupounsCubit mockGetHotCoupounsCubit = MockGetHotCoupounsCubit();
 
   testWidgets('Modify UI explore store screen', (widgetTester) async {
@@ -48,7 +47,7 @@ void main() {
     });
     await widgetTester.pumpAndSettle(const Duration(seconds: 1));
 
-    expect(find.byType(BlocProvider<GetFeaturedStoresCubit>), findsOneWidget);
+    expect(find.byType(BlocProvider<GetStoresCubit>), findsOneWidget);
   });
   testWidgets('Verify store screen include get happening event cubit',
       (widgetTester) async {
@@ -76,8 +75,8 @@ void main() {
       (widgetTester) async {
     when(mockGetFeaturedEventsCubit.stream).thenAnswer((realInvocation) =>
         Stream<GetFeaturedEventsState>.value(GetFeaturedEventsInitial()));
-    when(mockGetFeaturedStoresCubit.stream).thenAnswer((realInvocation) =>
-        Stream<GetFeaturedStoresState>.value(GetFeaturedStoresInitial()));
+    when(mockGetStoresCubit.stream).thenAnswer(
+        (realInvocation) => Stream<GetStoresState>.value(GetStoresInitial()));
     when(mockGetHotCoupounsCubit.stream).thenAnswer((realInvocation) =>
         Stream<GetHotCoupounsState>.value(GetHotCoupounsInitial()));
 
@@ -90,8 +89,7 @@ void main() {
             create: (_) => mockGetHotCoupounsCubit),
         BlocProvider<GetFeaturedEventsCubit>(
             create: (_) => mockGetFeaturedEventsCubit),
-        BlocProvider<GetFeaturedStoresCubit>(
-            create: (_) => mockGetFeaturedStoresCubit)
+        BlocProvider<GetStoresCubit>(create: (_) => mockGetStoresCubit)
       ], widget);
 
       await widgetTester.tap(find.descendant(
@@ -101,7 +99,7 @@ void main() {
       await widgetTester.pumpAndSettle();
 
       verify(mockGetHotCoupounsCubit.getHotCoupouns()).called(1);
-      verify(mockGetFeaturedStoresCubit.getFeaturedStores()).called(1);
+      verify(mockGetStoresCubit.getFeaturedStores()).called(1);
       verify(mockGetFeaturedEventsCubit.getFeaturedEvents()).called(1);
     });
   });

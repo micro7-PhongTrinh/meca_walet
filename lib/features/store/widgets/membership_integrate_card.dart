@@ -34,7 +34,7 @@ class MembershipStoreBody extends StatelessWidget {
         bloc: BlocProvider.of<GetMemcardCubit>(context),
         builder: (context, state) {
           if (state is GetMemcardSuccess) {
-            return MembershipStoreCard(card: state.card);
+            return MembershipStoreCard(detailCard: state.card);
           } else if (state is NotIntegrateMembership) {
             return const IntegrateMembershipHolder();
           }

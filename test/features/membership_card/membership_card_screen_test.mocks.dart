@@ -167,9 +167,9 @@ class MockGetCurrentActivityCubit extends _i1.Mock
         returnValue: false,
       ) as bool);
   @override
-  _i4.Future<void> getCurrentActivities() => (super.noSuchMethod(
+  _i4.Future<void> getLatelyActivities() => (super.noSuchMethod(
         Invocation.method(
-          #getCurrentActivities,
+          #getLatelyActivities,
           [],
         ),
         returnValue: _i4.Future<void>.value(),

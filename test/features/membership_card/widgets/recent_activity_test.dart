@@ -80,7 +80,7 @@ main() {
         mockGetCurrentActivityCubit, widget);
     await widgetTester.pumpAndSettle();
 
-    verify(mockGetCurrentActivityCubit.getCurrentActivities()).called(1);
+    verify(mockGetCurrentActivityCubit.getLatelyActivities()).called(1);
   });
   testWidgets('Verify UI show recent activities ', (widgetTester) async {
     Widget widget = const ListRecentActivity();

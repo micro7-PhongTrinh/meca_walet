@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../bloc/common_cubit/get_stores_cubit.dart';
 import '../../../constants/colors.dart';
 import '../../../widgets/tab_title.dart';
 import '../../store/store_screen.dart';
-import '../bloc/get_filtered_stores_cubit.dart';
 import 'suggest_item.dart';
 import 'suggest_item_skeleton.dart';
 
@@ -15,8 +15,8 @@ class SearchingStoreResult extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    GetFilteredStoresCubit cubit =
-        BlocProvider.of<GetFilteredStoresCubit>(context);
+    GetStoresCubit cubit =
+        BlocProvider.of<GetStoresCubit>(context);
     cubit.getFilteredStores(searchString);
 
     return SingleChildScrollView(
@@ -35,14 +35,14 @@ class FilteredStoreBody extends StatelessWidget {
     required this.cubit,
   });
 
-  final GetFilteredStoresCubit cubit;
+  final GetStoresCubit cubit;
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<GetFilteredStoresCubit, GetFilteredStoresState>(
+    return BlocBuilder<GetStoresCubit, GetStoresState>(
         bloc: cubit,
         builder: (context, state) {
-          if (state is GetFilteredStoresSuccess) {
+          if (state is GetStoresSuccess) {
             return Column(
               children: List.generate(
                   state.stores.length,
@@ -53,7 +53,7 @@ class FilteredStoreBody extends StatelessWidget {
                             onTap: () => Navigator.of(context).pushNamed(
                                 StoreScreen.routeName,
                                 arguments: state.stores[index].id),
-                            child: const SuggestItem()),
+                            child: SuggestItem(store: state.stores[index])),
                       )),
             );
           }

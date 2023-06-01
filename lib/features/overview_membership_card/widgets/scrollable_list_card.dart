@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:meca_service/data/detail_member_card.dart';
 import 'package:meca_service/data/member_card.dart';
 import 'package:meca_wallet/bloc/common_cubit/get_featured_memcard_cubit.dart';
 import 'package:card_swiper/card_swiper.dart';
@@ -23,7 +24,7 @@ class ScrollableListCard extends StatelessWidget {
     return BlocBuilder<GetFeaturedMemcardCubit, GetFeaturedMemcardState>(
         bloc: cubit,
         builder: ((context, state) {
-          if (state is GetFeaturedMemcardSuccess) {
+          if (state is GetMemcardSuccess) {
             return ListCardHolder(cards: state.cards);
           }
           if (state is GetFeaturedMemcardFail) {
@@ -35,7 +36,7 @@ class ScrollableListCard extends StatelessWidget {
 }
 
 class ListCardHolder extends StatelessWidget {
-  final List<MemberCard> cards;
+  final List<DetailMemberCard> cards;
   const ListCardHolder({super.key, required this.cards});
 
   @override
@@ -47,7 +48,7 @@ class ListCardHolder extends StatelessWidget {
             height: 260,
             child: MembershipStoreCard(
                 key: ValueKey('memcard-${index.toString()}'),
-                card: cards[index]),
+                detailCard: cards[index]),
           ),
         );
       },
@@ -56,9 +57,10 @@ class ListCardHolder extends StatelessWidget {
       autoplayDelay: 1000,
       onIndexChanged: (index) {},
       onTap: (index) {
-        Navigator.of(context).pushNamed(DetailMembershipCardScreen.routeName);
+        Navigator.of(context).pushNamed(DetailMembershipCardScreen.routeName,
+            arguments: cards[index]);
       },
-      itemCount: 2,
+      itemCount: cards.length,
       pagination: const SwiperPagination(
           builder: DotSwiperPaginationBuilder(
               color: kFillColorThird, activeColor: kPrimaryPurple),

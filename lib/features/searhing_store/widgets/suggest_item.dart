@@ -1,9 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:meca_service/data/store.dart';
 import 'package:meca_wallet/constants/colors.dart';
 
 class SuggestItem extends StatelessWidget {
-  const SuggestItem({super.key});
+  const SuggestItem({super.key, required this.store});
+
+  final Store store;
 
   @override
   Widget build(BuildContext context) {
@@ -14,10 +17,9 @@ class SuggestItem extends StatelessWidget {
             Container(
                 width: 60,
                 decoration: ShapeDecoration(
-                    image: const DecorationImage(
+                    image: DecorationImage(
                         fit: BoxFit.fill,
-                        image: CachedNetworkImageProvider(
-                            'https://duhocsunny.edu.vn/wp-content/uploads/2020/05/4-tiem-tra-sua-khuay-dao-gioi-tre-han-quoc-3.jpg')),
+                        image: CachedNetworkImageProvider(store.logoUrl)),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(2),
                     ))),
@@ -26,15 +28,16 @@ class SuggestItem extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text('Trà sữa dưa lưới',
-                      style: TextStyle(
+                children: [
+                  Text(store.name,
+                      style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                           color: kPrimaryPurple,
                           overflow: TextOverflow.ellipsis)),
-                  Text('45 thành viên - 4 Phạm Ngọc Thạch, Tân Phú, Quận 9',
-                      style: TextStyle(fontSize: 16, color: kTextColorThird),
+                  Text(store.location,
+                      style:
+                          const TextStyle(fontSize: 16, color: kTextColorThird),
                       overflow: TextOverflow.ellipsis)
                 ],
               ),

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:meca_wallet/bloc/common_cubit/get_stores_cubit.dart';
 
 import '../../../constants/colors.dart';
 import '../../../widgets/tab_title.dart';
-import '../bloc/get_filtered_stores_cubit.dart';
 import 'suggest_item.dart';
 import 'suggest_item_skeleton.dart';
 
@@ -12,8 +12,7 @@ class StoreSuggest extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    GetFilteredStoresCubit cubit =
-        BlocProvider.of<GetFilteredStoresCubit>(context);
+    GetStoresCubit cubit = BlocProvider.of<GetStoresCubit>(context);
     cubit.getSuggestStores();
     return SingleChildScrollView(
         child: Column(children: [
@@ -31,21 +30,21 @@ class SuggestStoreBody extends StatelessWidget {
     required this.cubit,
   });
 
-  final GetFilteredStoresCubit cubit;
+  final GetStoresCubit cubit;
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<GetFilteredStoresCubit, GetFilteredStoresState>(
+    return BlocBuilder<GetStoresCubit, GetStoresState>(
         bloc: cubit,
         builder: (context, state) {
-          if (state is GetFilteredStoresSuccess) {
+          if (state is GetStoresSuccess) {
             return Column(
               children: List.generate(
                   state.stores.length,
-                  (index) => const Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                        child: SuggestItem(),
+                  (index) => Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 8),
+                        child: SuggestItem(store: state.stores[index]),
                       )),
             );
           }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:meca_wallet/bloc/authentication/authentication/authentication_bloc.dart';
 
 import '../../constants/colors.dart';
 import '../login/login_screen.dart';
@@ -101,6 +103,8 @@ class _TextView extends StatelessWidget {
             const Spacer(),
             ElevatedButton(
               onPressed: () {
+                BlocProvider.of<AuthenticationBloc>(context)
+                    .add(const FirstUserLoggedin());
                 Navigator.of(context).pushNamed(LoginScreen.routeName);
               },
               child: const Text(

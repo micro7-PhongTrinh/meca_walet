@@ -12,6 +12,8 @@ class MecaServiceRequest {
     try {
       var url = Uri.parse(
           '${ApiConstant.baseUrl}${ApiConstant.authGooglePath}?${ApiConstant.accessTokenParam}$accessToken');
+
+      print(url.toString());
       var response = await http.get(url);
       if (response.statusCode == 200) {
         _storeAthenticationToken(_getReponseField(response.body, 'jwt'));
@@ -28,6 +30,14 @@ class MecaServiceRequest {
     return '${ApiConstant.baseUrl}${ApiConstant.featuredStoresPath}';
   }
 
+  String getSuggestStoresUrl() {
+    return '${ApiConstant.baseUrl}${ApiConstant.suggestStoresPath}';
+  }
+
+  String getFilteredStoresUrl(String searchString) {
+    return '${ApiConstant.baseUrl}${ApiConstant.filteredStoresPath}?${ApiConstant.searchParam}$searchString';
+  }
+
   String getFeaturedProductsUrl() {
     return '${ApiConstant.baseUrl}${ApiConstant.featuredProductsPath}';
   }
@@ -36,16 +46,20 @@ class MecaServiceRequest {
     return '${ApiConstant.baseUrl}${ApiConstant.storeProductsPath}?${ApiConstant.storeIdParam}$storeId';
   }
 
-  String getFeaturedMemberCardsUrl() {
+  String getFeaturedDetailMemberCardsUrl() {
     return '${ApiConstant.baseUrl}${ApiConstant.featuredMemberCardsPath}';
   }
 
-  String getAllMemberCardsUrl() {
-    return '${ApiConstant.baseUrl}${ApiConstant.memberCardsPath}?populate=*';
+  String getAllDetailMemberCardsUrl() {
+    return '${ApiConstant.baseUrl}${ApiConstant.allmemberCardsPath}';
   }
 
-  String getDetailMemberCardUrl(String storeId) {
-    return '${ApiConstant.baseUrl}${ApiConstant.detailMemberCardsPath}?${ApiConstant.storeIdParam}$storeId';
+  String getDetailMemberCardByStoreUrl(String storeId) {
+    return '${ApiConstant.baseUrl}${ApiConstant.detailMemberCardsByStorePath}?${ApiConstant.storeIdParam}$storeId';
+  }
+
+  String getDetailMemberCardByCardUrl(String cardId) {
+    return '${ApiConstant.baseUrl}${ApiConstant.detailMemberCardsByMemberCardPath}?${ApiConstant.cardIdParam}$cardId';
   }
 
   String getDetailStoreUrl(String id) {
@@ -54,6 +68,18 @@ class MecaServiceRequest {
 
   String getStoreEventdUrl(String storeId) {
     return '${ApiConstant.baseUrl}${ApiConstant.storeEventPath}?${ApiConstant.storeIdParam}$storeId';
+  }
+
+  String getFeaturedEventdUrl() {
+    return '${ApiConstant.baseUrl}${ApiConstant.featuredEventPath}';
+  }
+
+  String getLatelyActivityUrl() {
+    return '${ApiConstant.baseUrl}${ApiConstant.latelyActivitiesPath}';
+  }
+
+  String getActivityByMemberCardUrl(String cardId) {
+    return '${ApiConstant.baseUrl}${ApiConstant.activitiesByMemberCardPath}?${ApiConstant.cardIdParam}$cardId';
   }
 
   Future<User> getUser() async {
@@ -89,7 +115,7 @@ class MecaServiceRequest {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     bool t = await localStorage.setString('jwt', jwt);
     if (t) {
-      print('store jwt success');
+      print('store jwt success' + jwt);
     }
   }
 

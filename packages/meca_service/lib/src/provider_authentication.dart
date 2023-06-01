@@ -27,6 +27,8 @@ class ProviderAuthentication {
   Future<String> getGoogleAccessToken(GoogleSignInAccount account) async {
     final GoogleSignInAuthentication googleAuth = await account.authentication;
 
+    print(googleAuth.idToken);
+
     return googleAuth.accessToken!;
   }
 

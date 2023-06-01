@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../bloc/common_cubit/get_event_cubit.dart';
 import '../../../widgets/tab_title.dart';
 import '../../store/store_screen.dart';
-import '../bloc/get_featured_events_cubit.dart';
 import 'featured_item.dart';
 import 'featured_item_skeleton.dart';
 
@@ -12,10 +12,10 @@ class FeaturedEvents extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<GetFeaturedEventsCubit>(context).getFeaturedEvents();
+    BlocProvider.of<GetEventCubit>(context).getFeaturedEvents();
     return const Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children:  [
+      children: [
         TabTitle(title: 'Sự kiện đang diễn ra', padding: 0),
         SizedBox(
           height: 10,
@@ -34,17 +34,18 @@ class FeaturedEventItems extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<GetFeaturedEventsCubit, GetFeaturedEventsState>(
-        bloc: BlocProvider.of<GetFeaturedEventsCubit>(context),
+    return BlocBuilder<GetEventCubit, GetEventState>(
+        bloc: BlocProvider.of<GetEventCubit>(context),
         builder: (context, state) {
-          if (state is GetFeaturedEventsSuccess) {
+          if (state is GetEventSuccess) {
+            print('11111123123123');
             return Row(
                 children: List.generate(
                     state.events.length,
                     (index) => InkWell(
-                          onTap: () => Navigator.of(context)
-                              .pushNamed(StoreScreen.routeName,arguments: state.events[index].storeId
-                        ),
+                          onTap: () => Navigator.of(context).pushNamed(
+                              StoreScreen.routeName,
+                              arguments: state.events[index].store.id),
                           child: Container(
                               margin: const EdgeInsets.only(right: 15),
                               child: FeaturedItem(

@@ -17,3 +17,7 @@ class UserChanged extends AuthenticationEvent {
 class CheckUserLoggedIn extends AuthenticationEvent {
   const CheckUserLoggedIn();
 }
+
+class FirstUserLoggedin extends AuthenticationEvent {
+  const FirstUserLoggedin();
+}

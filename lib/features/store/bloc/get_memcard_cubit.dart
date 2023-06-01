@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meca_service/data/member_card.dart';
+import 'package:meca_service/data/detail_member_card.dart';
 import 'package:meca_service/meca_service.dart';
 
 part 'get_memcard_state.dart';
@@ -14,9 +14,9 @@ class GetMemcardCubit extends Cubit<GetMemcardState> {
 
   Future<void> getStoreMemcard(String storeId) async {
     emit(GetMemcardLoading());
-    await Future.delayed(const Duration(seconds: 2));
     try {
-      MemberCard? card = await _mecaService.getDetailMemberCard(storeId);
+      DetailMemberCard? card =
+          await _mecaService.getDetailMemberCardByStore(storeId);
       if (card != null) {
         emit(GetMemcardSuccess(card));
       } else {
@@ -29,9 +29,9 @@ class GetMemcardCubit extends Cubit<GetMemcardState> {
 
   Future<void> integrateMemcard(String storeId) async {
     emit(GetMemcardLoading());
-    await Future.delayed(const Duration(seconds: 2));
     try {
-      MemberCard card = await _mecaService.createDetailMemberCard(storeId);
+      DetailMemberCard card =
+          await _mecaService.createDetailMemberCard(storeId);
       emit(GetMemcardSuccess(card));
     } catch (e) {
       emit(GetMemcardFail());

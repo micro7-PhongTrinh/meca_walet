@@ -8,6 +8,8 @@ import 'intro_screen.dart';
 class LandingScreen extends StatelessWidget {
   const LandingScreen({super.key});
 
+  static const String routeName = '/landingScreen';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

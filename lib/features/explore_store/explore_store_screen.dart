@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meca_service/meca_service.dart';
 
-import '../../bloc/common_cubit/get_featured_stores_cubit.dart';
+import '../../bloc/common_cubit/get_event_cubit.dart';
+import '../../bloc/common_cubit/get_stores_cubit.dart';
 import '../../widgets/selected_text_button.dart';
-import 'bloc/get_featured_events_cubit.dart';
-import 'bloc/get_hot_coupons_cubit.dart';
 import 'widgets/explore_store_appbar.dart';
 import 'widgets/featured_events.dart';
 import 'widgets/featured_stores.dart';
-import 'widgets/hot_coupons.dart';
 
 class ExploreStoreScreen extends StatelessWidget {
   const ExploreStoreScreen({super.key});
@@ -19,21 +17,20 @@ class ExploreStoreScreen extends StatelessWidget {
   final List<String> filteredOptions = const [
     'Tất cả',
     'Thịnh hành',
-    'Món ăn',
-    'Dịch vụ'
+    'Yêu thích',
+    'Nổi bật'
   ];
 
   @override
   Widget build(BuildContext context) {
+    final MecaService service = RepositoryProvider.of<MecaService>(context);
     return Scaffold(
       body: MultiBlocProvider(
         providers: [
-          BlocProvider<GetFeaturedStoresCubit>(
-              create: (_) => GetFeaturedStoresCubit(mecaService:  RepositoryProvider.of<MecaService>(context))),
-          BlocProvider<GetFeaturedEventsCubit>(
-              create: (_) => GetFeaturedEventsCubit()),
-          BlocProvider<GetHotCoupounsCubit>(
-              create: (_) => GetHotCoupounsCubit())
+          BlocProvider<GetStoresCubit>(
+              create: (_) => GetStoresCubit(mecaService: service)),
+          BlocProvider<GetEventCubit>(
+              create: (_) => GetEventCubit(mecaService: service))
         ],
         child: ExploreStoreBody(filteredOptions: filteredOptions),
       ),
@@ -64,10 +61,8 @@ class ExploreStoreBody extends StatelessWidget {
               const FeaturedStores(),
               const SizedBox(height: 20),
               const FeaturedEvents(),
-              const SizedBox(height: 20),
-              const HotCoupons(),
               const SizedBox(
-                height: 1200,
+                height: 400,
               )
             ]),
           ],
@@ -109,12 +104,8 @@ class _FilteredOptionsState extends State<FilteredOptions> {
                   setState(() {
                     selectedIndex = index;
                   });
-                  BlocProvider.of<GetFeaturedEventsCubit>(context)
-                      .getFeaturedEvents();
-                  BlocProvider.of<GetFeaturedStoresCubit>(context)
-                      .getFeaturedStores();
-                  BlocProvider.of<GetHotCoupounsCubit>(context)
-                      .getHotCoupouns();
+                  BlocProvider.of<GetEventCubit>(context).getFeaturedEvents();
+                  BlocProvider.of<GetStoresCubit>(context).getFeaturedStores();
                 })),
           )),
     );

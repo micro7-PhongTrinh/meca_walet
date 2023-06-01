@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:meca_wallet/features/landing/landing_screen.dart';
 import 'package:meca_wallet/features/login/login_screen.dart';
 
 import '../../bloc/authentication/authentication/authentication_bloc.dart';
@@ -45,11 +46,16 @@ class SplashScreen extends StatelessWidget {
             listener: (context, state) {
               if (state is AuthenticatedState) {
                 print('loged in!');
+                Navigator.of(context).popUntil(ModalRoute.withName(routeName));
                 Navigator.of(context).pushNamed(MWHome.routeName);
               }
               if (state is UnauthenticatedState) {
                 print('not logged in..');
                 Navigator.of(context).pushNamed(LoginScreen.routeName);
+              }
+              if (state is UserFirstLoginState) {
+                print('first log in..');
+                Navigator.of(context).pushNamed(LandingScreen.routeName);
               }
             },
           )

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meca_service/data/detail_member_card.dart';
 import 'package:meca_wallet/constants/colors.dart';
 import 'package:meca_wallet/features/detail_memberhsip_card/widgets/user_infor_dialog.dart';
 import 'package:meca_wallet/features/store/store_screen.dart';
@@ -6,7 +7,9 @@ import 'package:meca_wallet/features/store/store_screen.dart';
 import 'cancel_membership_dialog.dart';
 
 class UtilityPanel extends StatelessWidget {
-  const UtilityPanel({super.key});
+  const UtilityPanel({super.key, required this.detailCard});
+
+  final DetailMemberCard detailCard;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +22,11 @@ class UtilityPanel extends StatelessWidget {
               child: AdvancedButton(
                 icon: Icons.person,
                 content: 'Thông tin',
-                onTap: () => _showInformationDialog(context),
+                onTap: () => showDialog(
+                    context: context,
+                    builder: ((context) => UserCardInforDialog(
+                          detailCard: detailCard,
+                        ))),
               ),
             ),
             Expanded(
@@ -27,19 +34,13 @@ class UtilityPanel extends StatelessWidget {
                 child: AdvancedButton(
                     icon: Icons.storefront,
                     content: 'Cửa hàng',
-                    onTap: () => Navigator.of(context)
-                        .pushNamed(StoreScreen.routeName,
-                        arguments: 1
-                        ))),
+                    onTap: () => Navigator.of(context).pushNamed(
+                        StoreScreen.routeName,
+                        arguments: detailCard.card.store.id))),
             Expanded(
                 flex: 1,
                 child: AdvancedButton(
-                    icon: Icons.close,
-                    content: 'Hủy thẻ',
-                    onTap: () => showDialog<String>(
-                          context: context,
-                          builder: (BuildContext context) => const CancelMembershipDialog(),
-                        )))
+                    icon: Icons.close, content: 'Hủy thẻ', onTap: () {}))
           ],
         ),
         const SizedBox(height: 15),
@@ -49,11 +50,6 @@ class UtilityPanel extends StatelessWidget {
         )
       ],
     );
-  }
-
-  void _showInformationDialog(context) {
-    showDialog(
-        context: context, builder: ((context) => const UserInforDialog()));
   }
 }
 
@@ -112,11 +108,11 @@ class CardNotification extends StatelessWidget {
         child: RichText(
           textAlign: TextAlign.center,
           text: const TextSpan(
-              text: "Thẻ thành viên thành viên thành viên thành viên",
+              text: "Thẻ thành viên được cung cấp bởi Meca Wallet",
               style: TextStyle(color: kPrimaryPurple),
               children: <TextSpan>[
                 TextSpan(
-                  text: '\nNhà gỗ quán thành viên thành viên!',
+                  text: '\nCác thông tin của bạn sẽ được quản lý và bảo vệ!',
                   style: TextStyle(color: kPrimaryPurple, height: 1.6),
                 ),
               ]),

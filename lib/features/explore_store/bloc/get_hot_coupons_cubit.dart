@@ -11,7 +11,6 @@ class GetHotCoupounsCubit extends Cubit<GetHotCoupounsState> {
   Future<void> getHotCoupouns() async {
     emit(GetHotCoupounsLoading());
     print('1123');
-    await Future.delayed(const Duration(seconds: 1));
     List<CoupounModel> coupons = List.generate(
         4,
         (index) => CoupounModel('Giảm 5% khi mua thức uống tại cửa hàng', '123',

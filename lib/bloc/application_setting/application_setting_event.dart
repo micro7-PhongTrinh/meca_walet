@@ -5,5 +5,5 @@ class ApplicationSettingEvent extends Equatable {
   List<Object?> get props => <Object?>[];
 }
 
-class CheckUserLoggedinEvent extends ApplicationSettingEvent {}
+class CheckUserFirstLoginEvent extends ApplicationSettingEvent {}
 class SaveUserLoggedinEvent extends ApplicationSettingEvent {}

@@ -6,5 +6,5 @@ class ApplicationSettingState extends Equatable {
 }
 
 class ApplicationInitialState extends ApplicationSettingState {}
-class UserLoggedinState extends ApplicationSettingState {}
+class UserFirstLoginState extends ApplicationSettingState {}
 class SaveLoggedinSuccessState extends ApplicationSettingState {}

@@ -2,9 +2,11 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:http/http.dart';
+import 'package:meca_service/data/detail_member_card.dart';
 import 'package:meca_service/src/meca_service_request.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../data/activity.dart';
 import '../data/event.dart';
 import '../data/featured_member_card.dart';
 import '../data/member_card.dart';
@@ -20,11 +22,11 @@ class MecaService {
   final ProviderAuthentication _providerAuthentication;
 
   final StreamController<User> _userController;
-  final StreamController<MemberCard> _memcardController;
+  final StreamController<DetailMemberCard> _memcardController;
 
   Stream<User?> get user => _userController.stream;
 
-  Stream<MemberCard> get memcard => _memcardController.stream;
+  Stream<DetailMemberCard> get memcard => _memcardController.stream;
 
   MecaService(
       {MecaServiceRequest? mecaServiceRequest,
@@ -63,6 +65,7 @@ class MecaService {
       User checkUser = await _mecaServiceRequest.authWithGoogle(googleToken);
       _userController.add(checkUser);
     } catch (e) {
+      _providerAuthentication.signoutGoogle();
       rethrow;
     }
   }
@@ -132,6 +135,20 @@ class MecaService {
     return List<Store>.from(data.map((e) => Store.fromJson(e)));
   }
 
+  Future<List<Store>> getSuggestStores() async {
+    List<dynamic> data =
+        await _baseGetRequest(_mecaServiceRequest.getSuggestStoresUrl());
+
+    return List<Store>.from(data.map((e) => Store.fromJson(e)));
+  }
+
+  Future<List<Store>> getFilteredStores(String searchString) async {
+    List<dynamic> data = await _baseGetRequest(
+        _mecaServiceRequest.getFilteredStoresUrl(searchString));
+
+    return List<Store>.from(data.map((e) => Store.fromJson(e)));
+  }
+
   Future<List<Product>> getFeaturedProducts() async {
     List<dynamic> data =
         await _baseGetRequest(_mecaServiceRequest.getFeaturedProductsUrl());
@@ -153,35 +170,48 @@ class MecaService {
     return Store.fromJson(response['data']);
   }
 
-  Future<FeaturedMemberCard> getFeaturedMemberCards() async {
-    var data =
-        await _baseGetRequest(_mecaServiceRequest.getFeaturedMemberCardsUrl());
+  Future<FeaturedMemberCard> getFeaturedDetailMemberCards() async {
+    var data = await _baseGetRequest(
+        _mecaServiceRequest.getFeaturedDetailMemberCardsUrl());
 
     return FeaturedMemberCard.fromJson(data);
   }
 
-  Future<List<MemberCard>> getAllMembershipCards() async {
+  Future<List<DetailMemberCard>> getAllDetailMemberCards() async {
     var response =
-        await _baseGetRequest(_mecaServiceRequest.getAllMemberCardsUrl());
-    List<dynamic> data = response['data'];
-    return List<MemberCard>.from(data.map((e) => MemberCard.fromJson(e)));
+        await _baseGetRequest(_mecaServiceRequest.getAllDetailMemberCardsUrl());
+
+    return List<DetailMemberCard>.from(
+        response.map((e) => DetailMemberCard.fromJson(e)));
   }
 
-  Future<MemberCard?> getDetailMemberCard(String storeId) async {
+  Future<DetailMemberCard?> getDetailMemberCardByStore(String storeId) async {
     dynamic data = await _baseGetRequest(
-        _mecaServiceRequest.getDetailMemberCardUrl(storeId));
+        _mecaServiceRequest.getDetailMemberCardByStoreUrl(storeId));
     try {
-      return MemberCard.fromJson(data);
+      return DetailMemberCard.fromJson(data);
     } catch (e) {
       return null;
     }
   }
 
-  Future<MemberCard> createDetailMemberCard(String storeId) async {
-    var data = await _basePostRequest(
-        _mecaServiceRequest.getDetailMemberCardUrl(storeId));
+  Future<DetailMemberCard> getDetailMemberCardByCard(String cardId) async {
+    dynamic data = await _baseGetRequest(
+        _mecaServiceRequest.getDetailMemberCardByCardUrl(cardId));
+
     try {
-      MemberCard card = MemberCard.fromJson(data);
+      DetailMemberCard card = DetailMemberCard.fromJson(data);
+      return card;
+    } catch (e) {
+      throw OtherException;
+    }
+  }
+
+  Future<DetailMemberCard> createDetailMemberCard(String storeId) async {
+    var data = await _basePostRequest(
+        _mecaServiceRequest.getDetailMemberCardByStoreUrl(storeId));
+    try {
+      DetailMemberCard card = DetailMemberCard.fromJson(data);
       _memcardController.add(card);
       return card;
     } catch (e) {
@@ -196,14 +226,37 @@ class MecaService {
     return List<Event>.from(data.map((e) => Event.fromJson(e)));
   }
 
+  Future<List<Event>> getFeaturedEvent() async {
+    List<dynamic> data =
+        await _baseGetRequest(_mecaServiceRequest.getFeaturedEventdUrl());
+
+    return List<Event>.from(data.map((e) => Event.fromJson(e)));
+  }
+
+  Future<List<Activity>> getLatelyActivity() async {
+    var response =
+        await _baseGetRequest(_mecaServiceRequest.getLatelyActivityUrl());
+
+    return List<Activity>.from(
+        response['data'].map((e) => Activity.fromJson(e)));
+  }
+
+  Future<List<Activity>> getActivityByMemberCard(String cardId) async {
+    var response = await _baseGetRequest(
+        _mecaServiceRequest.getActivityByMemberCardUrl(cardId));
+
+    return List<Activity>.from(
+        response['data'].map((e) => Activity.fromJson(e)));
+  }
+
   // Future<List<MemberCard>> getAllMemberCards(String userId) async {
   //   var data = await _baseGetRequest(_mecaServiceRequest.getFeaturedMemberCardsUrl(userId));
 
   //   return data.map(a => MemberCard.fromJson(a));
   // }
 
-  // Future<MemberCard> getDetailMemberCard(String userId, String cardId) async {
-  //   var data = await _baseGetRequest(_mecaServiceRequest.getDetailMemberCardUrl(userId, cardId));
+  // Future<MemberCard> getMemberCardByStore(String userId, String cardId) async {
+  //   var data = await _baseGetRequest(_mecaServiceRequest.getMemberCardByStoreUrl(userId, cardId));
 
   //   return MemberCard.fromJson(data);
   // }

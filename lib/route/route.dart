@@ -30,5 +30,6 @@ Map<String, Widget Function(BuildContext)> routes = {
       const DetailMembershipCardScreen(),
   ExploreStoreScreen.routeName: (ctx) => const ExploreStoreScreen(),
   SearchingStoreScreen.routeName: (ctx) => const SearchingStoreScreen(),
-  SplashScreen.routeName: (ctx) => const SplashScreen()
+  SplashScreen.routeName: (ctx) => const SplashScreen(),
+  LandingScreen.routeName: (ctx) => const LandingScreen()
 };

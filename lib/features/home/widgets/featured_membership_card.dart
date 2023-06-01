@@ -81,12 +81,12 @@ class FeaturedMembershipCardHolder extends StatelessWidget {
             ...List.generate(
                 state.cardTotal <= 3
                     ? state.cards.length
-                    : state.cards.length - 1,
+                    : 3,
                 (index) => Container(
                     margin: EdgeInsets.only(top: 72.0 * index),
                     child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        child: MembershipStoreCard(card: state.cards[index])))),
+                        child: MembershipStoreCard(detailCard: state.cards[index])))),
             if (state.cardTotal > 3)
               Container(
                   margin: const EdgeInsets.only(top: 72.0 * 2),
@@ -94,7 +94,7 @@ class FeaturedMembershipCardHolder extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
                       child: Stack(children: [
                         MembershipStoreCard(
-                            card: state.cards[state.cards.length - 1]),
+                            detailCard: state.cards[state.cards.length - 1]),
                         MembershipStoreMoreCard(
                             otherCardsnumber:
                                 state.cardTotal - state.cards.length),

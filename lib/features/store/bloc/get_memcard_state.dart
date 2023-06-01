@@ -12,7 +12,7 @@ class GetMemcardInitial extends GetMemcardState {}
 class GetMemcardLoading extends GetMemcardState {}
 
 class GetMemcardSuccess extends GetMemcardState {
-  final MemberCard card;
+  final DetailMemberCard card;
 
   const GetMemcardSuccess(this.card);
 }
